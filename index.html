@@ -860,6 +860,8 @@ body.uiHidden .mapWrap{
     <select id="buildingSelect">
 <option value="">🏢 Select Building</option>
 </select>
+
+
     <button id="searchBtn">Search</button>
     <button id="clearBtn">Clear</button>
     <button id="zoomOutBtn">− Zoom</button>
@@ -893,6 +895,7 @@ body.uiHidden .mapWrap{
   <select id="sflSelect"><option value="">SFL</option></select>
   <select id="egSelect"><option value="">EG</option></select>
   <select id="rsfipSelect"><option value="">RSFIP/MSFIP</option></select>
+  <select id="rptpSelect"><option value="">RPTP</option></select>
   <select id="unitsSelect"><option value="">Units</option></select>
 </div>
 
@@ -905,13 +908,14 @@ TK : Tank<br>
 PR : Petro Rabigh Building<br>
 BT : Berth<br>
 PIB: PIB Building<br>
+RPTP: External Companies<br>
 WR : WR Building<br>
 CT : Cooling Towers<br>
 SFL: Security Fence Light<br>
 EG : Emergancy Gate<br>
 </div>
     <span id="status"></span>
-    <div id="routeInfo">Direct Route: <span id="routeDistance">--</span> | <span id="routeDirection">--</span></div>
+    <div id="routeInfo">Distance: <span id="routeDistance">--</span> | <span id="routeDirection">--</span></div>
   </div>
   <div id="resultCard" class="resultCard"></div>
 
@@ -938,8 +942,8 @@ EG : Emergancy Gate<br>
       <div class="liveInfoValue" id="liveDirection">--</div>
     </div>
     <div class="liveInfoItem">
-      <div class="liveInfoTitle">Accuracy</div>
-      <div class="liveInfoValue" id="liveAccuracy">--</div>
+      <div class="liveInfoTitle">Distance</div>
+      <div class="liveInfoValue" id="liveDistance">--</div>
     </div>
   </div>
   <div class="liveRecentLine" id="liveRecentSearches">Recent: --</div>
@@ -1640,6 +1644,22 @@ const buildings = [
   { id:"HDPE", name:"", grid:"C4 056" },
   { id:"MUWDC", name:"", grid:"C4 078" },
   { id:"LCC PR 974", name:"", grid:"C4 013" },
+  // ===== RPTP Companies =====
+  { id:"ADFLEX", name:"", grid:"B0 079", category:"RPTP" },
+  { id:"AJMC", name:"", grid:"B1 008", category:"RPTP" },
+  { id:"ASTRA", name:"", grid:"C1 091", category:"RPTP" },
+  { id:"IPPCO", name:"", grid:"B1 027", category:"RPTP" },
+  { id:"LIGHT WEIGHT BUILDING FACTORY", name:"", grid:"B1 027", category:"RPTP" },
+  { id:"NAPCO", name:"", grid:"B0 078", category:"RPTP" },
+  { id:"Pure Life", name:"", grid:"B1 007", category:"RPTP" },
+  { id:"R-PTC", name:"", grid:"C0 087", category:"RPTP" },
+  { id:"RPL", name:"", grid:"C1 024", category:"RPTP" },
+  { id:"SAAF", name:"", grid:"B1 092", category:"RPTP" },
+  { id:"SAUDI ALBITEK", name:"", grid:"B1 023", category:"RPTP" },
+  { id:"SAUDI GERMAN", name:"", grid:"C0 082", category:"RPTP" },
+  { id:"STP", name:"", grid:"C1 042", category:"RPTP" },
+  { id:"TAHWEEL COMPANY", name:"", grid:"B1 067", category:"RPTP" },
+  { id:"TRITON WATER", name:"", grid:"C1 046", category:"RPTP" },
 ];
   const gates = [
   // Add gate markers here if needed.
@@ -1743,7 +1763,8 @@ gridInput.addEventListener("input",updateSuggestions);
       { id:"ctSelect", prefixes:["CT"] },
       { id:"sflSelect", prefixes:["SFL"] },
       { id:"egSelect", prefixes:["EG"] },
-      { id:"rsfipSelect", prefixes:["RSFIP","MSFIP"] }
+      { id:"rsfipSelect", prefixes:["RSFIP","MSFIP"] },
+      { id:"rptpSelect", category:"RPTP" }
     ];
 
     function getPrefix(id){
@@ -1774,6 +1795,7 @@ gridInput.addEventListener("input",updateSuggestions);
 
     function optionText(b){
       if(formatId(b.id)==="UNITS") return b.name || "";
+      if(String(b.category || "").toUpperCase()==="RPTP") return String(b.id || "").trim() + (b.name ? " - " + b.name : "");
       return formatId(b.id) + (b.name ? " - " + b.name : "");
     }
 
@@ -1807,6 +1829,7 @@ gridInput.addEventListener("input",updateSuggestions);
         .filter(b => {
           const id = formatId(b.id);
           if(cfg.id === "ctSelect" && id === "CT4") return false;
+          if(cfg.category) return String(b.category || "").toUpperCase() === String(cfg.category).toUpperCase();
           return cfg.prefixes.includes(getPrefix(b.id));
         })
         .sort((a,b)=> optionText(a).localeCompare(optionText(b), undefined, {numeric:true, sensitivity:"base"}))
@@ -2405,28 +2428,33 @@ function handleGpsPosition(pos, shouldScroll) {
   const status = document.getElementById("status");
   const lat = pos.coords.latitude;
   const lng = pos.coords.longitude;
-  const accuracy = Math.round(pos.coords.accuracy || 0);
   const xy = gpsToMapXY(lat, lng);
   window.lastMyLocationMapXY = xy;
   updateMyLocationMarker();
   updateDirectRoute();
 
   const nearest = nearestGridFromXY(xy.x, xy.y);
-  status.textContent = "📍 Live: " + nearest + " | دقة GPS: ±" + accuracy + "m";
+  const target = getRouteTargetXY();
+
+  let routeMeters = null;
+  let dirText = "--";
+  if (target) {
+    const pxDist = Math.hypot(target.x - xy.x, target.y - xy.y);
+    routeMeters = Math.round(pxDist * estimateMetersPerMapPixel());
+    dirText = directionText(target.x - xy.x, target.y - xy.y);
+  }
+
+  status.textContent = target
+    ? "📍 Live: " + nearest + " | Distance: " + routeMeters + "m"
+    : "📍 Live: " + nearest + " | اختار موقع عشان تظهر المسافة";
 
   try {
     const gridEl = document.getElementById("liveCurrentGrid");
-    const accEl = document.getElementById("liveAccuracy");
+    const distEl = document.getElementById("liveDistance");
     const dirEl = document.getElementById("liveDirection");
 
     if (gridEl) gridEl.textContent = nearest.replace(/\s+/g, "");
-    if (accEl) accEl.textContent = "±" + accuracy + "m";
-
-    let dirText = "--";
-    const target = getRouteTargetXY();
-    if (target) {
-      dirText = directionText(target.x - xy.x, target.y - xy.y);
-    }
+    if (distEl) distEl.textContent = routeMeters !== null ? (routeMeters + "m") : "--";
     if (dirEl) dirEl.textContent = dirText;
   } catch(e){}
 
@@ -3134,3 +3162,4 @@ document.addEventListener('DOMContentLoaded', function(){
 
 </body>
 </html>
+
