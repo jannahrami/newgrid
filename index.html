@@ -938,8 +938,8 @@ EG : Emergancy Gate<br>
       <div class="liveInfoValue" id="liveDirection">--</div>
     </div>
     <div class="liveInfoItem">
-      <div class="liveInfoTitle">Distance</div>
-      <div class="liveInfoValue" id="liveDistance">--</div>
+      <div class="liveInfoTitle">Accuracy</div>
+      <div class="liveInfoValue" id="liveAccuracy">--</div>
     </div>
   </div>
   <div class="liveRecentLine" id="liveRecentSearches">Recent: --</div>
@@ -1662,8 +1662,10 @@ document.getElementById(
 
 buildings
 .sort((a,b)=>
-a.id.localeCompare(
-b.id
+String(a.id || "").localeCompare(
+String(b.id || ""),
+undefined,
+{ numeric:true, sensitivity:"base" }
 )
 )
 
@@ -1807,7 +1809,7 @@ gridInput.addEventListener("input",updateSuggestions);
           if(cfg.id === "ctSelect" && id === "CT4") return false;
           return cfg.prefixes.includes(getPrefix(b.id));
         })
-        .sort((a,b)=> formatId(a.id).localeCompare(formatId(b.id), undefined, {numeric:true}))
+        .sort((a,b)=> optionText(a).localeCompare(optionText(b), undefined, {numeric:true, sensitivity:"base"}))
         .forEach(b=>{
           addOption(sel,b);
           used.add(b.id);
@@ -1827,7 +1829,7 @@ gridInput.addEventListener("input",updateSuggestions);
 
       buildings
         .filter(b => !used.has(b.id) || formatId(b.id) === "CT4")
-        .sort((a,b)=> formatId(a.id).localeCompare(formatId(b.id), undefined, {numeric:true}))
+        .sort((a,b)=> optionText(a).localeCompare(optionText(b), undefined, {numeric:true, sensitivity:"base"}))
         .forEach(b=>addOption(unitsSel,b));
 
       unitsSel.onchange = function(){
@@ -2289,20 +2291,6 @@ function updateDirectionArrow(ux, uy, tx, ty){
   arrow.style.display = "block";
 }
 
-function formatDistanceStatus(meters){
-  if (meters === null || meters === undefined || isNaN(meters)) return "--";
-  if (meters < 30) return "At Target";
-  if (meters < 100) return "Arrived Area";
-  return Math.round(meters) + "m";
-}
-
-function getDistanceToTargetFromXY(xy){
-  const target = getRouteTargetXY();
-  if (!target || !xy) return null;
-  const pxDist = Math.hypot(target.x - xy.x, target.y - xy.y);
-  return Math.round(pxDist * estimateMetersPerMapPixel());
-}
-
 function updateDirectRoute(){
   updateRouteLayerSize();
   const route = document.getElementById("routeLayer");
@@ -2397,7 +2385,7 @@ function updateDirectRoute(){
   targetPin.style.top = ty + "px";
   targetPin.style.display = "block";
 
-  distText.textContent = formatDistanceStatus(meters);
+  distText.textContent = meters + "m";
   dirText.textContent = directionText(target.x-window.lastMyLocationMapXY.x, target.y-window.lastMyLocationMapXY.y) + " | Grid: " + (currentGrid || "--");
   info.style.display = "block";
 }
@@ -2417,26 +2405,25 @@ function handleGpsPosition(pos, shouldScroll) {
   const status = document.getElementById("status");
   const lat = pos.coords.latitude;
   const lng = pos.coords.longitude;
+  const accuracy = Math.round(pos.coords.accuracy || 0);
   const xy = gpsToMapXY(lat, lng);
   window.lastMyLocationMapXY = xy;
   updateMyLocationMarker();
   updateDirectRoute();
 
   const nearest = nearestGridFromXY(xy.x, xy.y);
-  const target = getRouteTargetXY();
-  const metersToTarget = target ? getDistanceToTargetFromXY(xy) : null;
-  const distanceText = formatDistanceStatus(metersToTarget);
-  status.textContent = "📍 Live: " + nearest + (target ? " | Distance: " + distanceText : "");
+  status.textContent = "📍 Live: " + nearest + " | دقة GPS: ±" + accuracy + "m";
 
   try {
     const gridEl = document.getElementById("liveCurrentGrid");
-    const distanceEl = document.getElementById("liveDistance");
+    const accEl = document.getElementById("liveAccuracy");
     const dirEl = document.getElementById("liveDirection");
 
     if (gridEl) gridEl.textContent = nearest.replace(/\s+/g, "");
-    if (distanceEl) distanceEl.textContent = distanceText;
+    if (accEl) accEl.textContent = "±" + accuracy + "m";
 
     let dirText = "--";
+    const target = getRouteTargetXY();
     if (target) {
       dirText = directionText(target.x - xy.x, target.y - xy.y);
     }
