@@ -117,6 +117,8 @@ content="PRC Grid Finder">
   #shareBtn { background: #25D366; color: white; }
   #emergencyBtn { background:#ff0000; color:#fff; }
   #sosBtn { background:#ff1744; color:#fff; }
+  #smsSccBtn { background:#00bcd4; color:#111; }
+  #smsSccBtn { background:#0a84ff; color:#fff; }
 
   #myLocationBtn { background: #34c759; color: white; }
   #myLocationPin {
@@ -310,6 +312,7 @@ display:none;
   #shareBtn,
   #emergencyBtn,
   #sosBtn,
+  #smsSccBtn,
   #toggleCategoriesBtn,
   button[onclick*="share"],
   button[onclick*="Share"]{
@@ -687,14 +690,15 @@ display:none;
 .gtsBar{order:11 !important;}
 #shareBtn{order:12 !important;}
 #myLocationBtn{order:13 !important;}
-#emergencyBtn{order:14 !important;}
-a:has(#sosBtn){order:15 !important;}
-#sosBtn{order:15 !important;}
-#toggleCategoriesBtn{order:16 !important;}
-.categoryBar{order:17 !important;}
-.hint{order:18 !important;}
-#status{order:19 !important;}
-#routeInfo{order:20 !important;}
+#smsSccBtn{order:14 !important;}
+#emergencyBtn{order:15 !important;}
+a:has(#sosBtn){order:16 !important;}
+#sosBtn{order:16 !important;}
+#toggleCategoriesBtn{order:17 !important;}
+.categoryBar{order:18 !important;}
+.hint{order:19 !important;}
+#status{order:20 !important;}
+#routeInfo{order:21 !important;}
 
 @media (max-width:768px){
   .topbar{
@@ -949,6 +953,12 @@ button[onclick*="Share"]{
   border-color:rgba(25,210,124,.8) !important;
 }
 
+#smsSccBtn{
+  background:linear-gradient(180deg, #0a84ff, #0052b8) !important;
+  border-color:rgba(10,132,255,.82) !important;
+  box-shadow:0 0 18px rgba(10,132,255,.32), inset 0 1px 0 rgba(255,255,255,.15) !important;
+}
+
 #emergencyBtn{
   background:linear-gradient(180deg, #ff3b30, #a70e15) !important;
   border-color:rgba(255,80,80,.82) !important;
@@ -1176,43 +1186,6 @@ select:focus,
 }
 </style>
 
-
-
-<style id="BOTTOM_SPACE_TRIM_ONLY">
-/* Bottom empty-space trim only - no dropdown, data, or logic changes */
-html,
-body{
-  margin:0 !important;
-  padding:0 !important;
-  min-height:0 !important;
-  height:auto !important;
-  overflow-x:hidden !important;
-  background:#020807 !important;
-}
-
-.liveInfoPanel{
-  margin-bottom:0 !important;
-}
-
-.credit{
-  margin:0 !important;
-  padding:5px 0 6px !important;
-  line-height:1.2 !important;
-}
-
-body::after{
-  content:none !important;
-  display:none !important;
-  height:0 !important;
-}
-
-@media (max-width:768px){
-  .credit{
-    font-size:12px !important;
-    padding:4px 0 4px !important;
-  }
-}
-</style>
 </head>
 <body>
 
@@ -1254,13 +1227,14 @@ body::after{
       <button id="gts012Btn">012 GTS</button>
       <button id="gts09Btn">09 GTS</button>
     </div>
-    <button id="shareBtn">💬Share Map</button>
+    <button id="shareBtn">Share Map</button>
     <button id="myLocationBtn">📍 My Location</button>
-    <button id="emergencyBtn">🏠Find SIP</button>
-<a href="tel:0124251555"><button id="sosBtn">🚨SCC</button></a>
+    <button id="emergencyBtn">🏢Find SIP</button>
+    <button id="smsSccBtn" type="button">📩 SMS SCC</button>
+<a href="tel:0555136352"><button id="sosBtn">📞 SOS</button></a>
     <span class="hint">Type Grid: A0 001 to G5 100. Building data is empty for new input.</span>
 
-    <button id="toggleCategoriesBtn" type="button">🏢Buildings</button>
+    <button id="toggleCategoriesBtn" type="button">📂 Buildings</button>
 
 <div class="categoryBar collapsed">
   <select id="phSelect"><option value="">PH</option></select>
@@ -2809,6 +2783,8 @@ function handleGpsPosition(pos, shouldScroll) {
   const lng = pos.coords.longitude;
   const xy = gpsToMapXY(lat, lng);
   window.lastMyLocationMapXY = xy;
+  window.lastGpsPosition = { lat: lat, lng: lng, accuracy: Math.round(pos.coords.accuracy || 0), time: new Date() };
+  window.lastGpsGrid = nearestGridFromXY(xy.x, xy.y);
   updateMyLocationMarker();
   updateDirectRoute();
 
@@ -2885,59 +2861,78 @@ function showMyLocation() {
 
 document.getElementById("myLocationBtn").onclick = showMyLocation;
 
-/* ===== Emergency: Find nearest PIB from existing buildings only ===== */
-function getExistingPibBuildings(){
-  return buildings.filter(function(b){
-    const id = String(b.id || "").trim().toUpperCase();
-    const name = String(b.name || "").trim().toUpperCase();
-    return /^PIB\s*0*\d+/.test(id) || /^PIB\s*0*\d+/.test(name);
-  }).filter(function(b){
-    return b.grid && String(b.grid).trim();
-  });
+
+/* ===== SMS SCC: send current grid + GPS link ===== */
+const SCC_SMS_NUMBER = "0555136352"; // غيّر الرقم هنا إذا عندك رقم SMS مخصص للكنترول
+
+function buildSccSmsMessage(lat, lng, accuracy, gridLabel) {
+  const cleanGrid = (gridLabel || "Unknown").replace(/\s+/g, " ").trim();
+  const mapsLink = "https://maps.google.com/?q=" + lat + "," + lng;
+  const timeText = new Date().toLocaleString();
+
+  return [
+    "ISD Navigator Emergency Location Report",
+    "",
+    "Grid: " + cleanGrid,
+    "GPS: " + mapsLink,
+    "Accuracy: " + (accuracy ? accuracy + "m" : "--"),
+    "Time: " + timeText,
+    "",
+    "Sent from ISD Navigator"
+  ].join("\n");
 }
 
-function findNearestExistingPibFromXY(xy){
-  const pibList = getExistingPibBuildings();
-  let best = null;
-
-  pibList.forEach(function(b){
-    try{
-      const pos = getGridPosition(b.grid);
-      if(!pos) return;
-      const d = Math.hypot(pos.centerX - xy.x, pos.centerY - xy.y);
-      if(!best || d < best.distancePx){
-        best = { building:b, pos:pos, distancePx:d };
-      }
-    }catch(e){}
-  });
-
-  return best;
+function openSmsToScc(message) {
+  const encoded = encodeURIComponent(message);
+  const isiPhone = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  window.location.href = isiPhone
+    ? "sms:" + SCC_SMS_NUMBER + "&body=" + encoded
+    : "sms:" + SCC_SMS_NUMBER + "?body=" + encoded;
 }
 
-function showNearestPibResult(best){
+function sendSccSmsFromPosition(pos) {
+  const latNum = Number(pos.coords.latitude);
+  const lngNum = Number(pos.coords.longitude);
+  const lat = latNum.toFixed(6);
+  const lng = lngNum.toFixed(6);
+  const accuracy = Math.round(pos.coords.accuracy || 0);
+  const xy = gpsToMapXY(latNum, lngNum);
+  const gridLabel = nearestGridFromXY(xy.x, xy.y);
+
+  window.lastGpsPosition = { lat: latNum, lng: lngNum, accuracy: accuracy, time: new Date() };
+  window.lastGpsGrid = gridLabel;
+  window.lastMyLocationMapXY = xy;
+
+  updateMyLocationMarker();
+  updateDirectRoute();
+  openSmsToScc(buildSccSmsMessage(lat, lng, accuracy, gridLabel));
+}
+
+function sendSccSms() {
   const status = document.getElementById("status");
-  const input = document.getElementById("gridInput");
-  if(!best || !best.building){
-    status.textContent = "لم يتم العثور على PIB داخل بيانات الملف";
+
+  if (window.lastGpsPosition && window.lastGpsPosition.lat && window.lastGpsPosition.lng) {
+    const p = window.lastGpsPosition;
+    const msg = buildSccSmsMessage(Number(p.lat).toFixed(6), Number(p.lng).toFixed(6), p.accuracy, window.lastGpsGrid);
+    openSmsToScc(msg);
     return;
   }
 
-  const b = best.building;
-  input.value = b.id;
-
-  try {
-    autoZoomNextSearch = true;
-    highlight(b.id);
-  } catch(e) {
-    autoZoomNextSearch = false;
-    try { highlight(b.grid); } catch(err) {}
+  if (!navigator.geolocation) {
+    if (status) status.textContent = "GPS غير مدعوم في هذا المتصفح";
+    return;
   }
 
-  try { updateDirectRoute(); } catch(e) {}
-
-  const meters = Math.round(best.distancePx * estimateMetersPerMapPixel());
-  status.textContent = "🚨 Nearest PIB: " + formatBuildingId(b.id) + " | Grid: " + b.grid + " | Distance: " + meters + "m";
+  if (status) status.textContent = "جاري تحديد موقعك لإرسال SMS...";
+  navigator.geolocation.getCurrentPosition(function(pos){
+    sendSccSmsFromPosition(pos);
+  }, function(err){
+    handleGpsError(err);
+  }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
 }
+
+const smsSccBtn = document.getElementById("smsSccBtn");
+if (smsSccBtn) smsSccBtn.onclick = sendSccSms;
 
 function emergencyNearestPIB(){
   const status = document.getElementById("status");
