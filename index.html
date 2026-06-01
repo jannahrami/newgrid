@@ -1057,6 +1057,42 @@ button[onclick*="Share"]{
 }
 </style>
 
+
+<style id="DROPDOWN_DATA_VISIBILITY_FIX_ONLY">
+/* Dropdown visibility fix only - no data or logic changes */
+select,
+.categoryBar select,
+#buildingSelect {
+  background: #10251f !important;
+  color: #ffffff !important;
+  border: 1px solid #00A651 !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+select option,
+.categoryBar select option,
+#buildingSelect option,
+select optgroup,
+.categoryBar select optgroup,
+#buildingSelect optgroup {
+  background: #ffffff !important;
+  color: #111111 !important;
+  -webkit-text-fill-color: #111111 !important;
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+  font-size: 14px !important;
+}
+
+select:focus,
+.categoryBar select:focus,
+#buildingSelect:focus {
+  outline: 2px solid #00A651 !important;
+  outline-offset: 2px !important;
+}
+</style>
+
 </head>
 <body>
 
