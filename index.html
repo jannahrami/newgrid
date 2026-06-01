@@ -1176,6 +1176,43 @@ select:focus,
 }
 </style>
 
+
+
+<style id="BOTTOM_SPACE_TRIM_ONLY">
+/* Bottom empty-space trim only - no dropdown, data, or logic changes */
+html,
+body{
+  margin:0 !important;
+  padding:0 !important;
+  min-height:0 !important;
+  height:auto !important;
+  overflow-x:hidden !important;
+  background:#020807 !important;
+}
+
+.liveInfoPanel{
+  margin-bottom:0 !important;
+}
+
+.credit{
+  margin:0 !important;
+  padding:5px 0 6px !important;
+  line-height:1.2 !important;
+}
+
+body::after{
+  content:none !important;
+  display:none !important;
+  height:0 !important;
+}
+
+@media (max-width:768px){
+  .credit{
+    font-size:12px !important;
+    padding:4px 0 4px !important;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -1217,13 +1254,13 @@ select:focus,
       <button id="gts012Btn">012 GTS</button>
       <button id="gts09Btn">09 GTS</button>
     </div>
-    <button id="shareBtn">Share Map</button>
+    <button id="shareBtn">💬Share Map</button>
     <button id="myLocationBtn">📍 My Location</button>
-    <button id="emergencyBtn">🏢Find SIP</button>
-<a href="tel:0124251555"><button id="sosBtn">📞 SOS</button></a>
+    <button id="emergencyBtn">🏠Find SIP</button>
+<a href="tel:0124251555"><button id="sosBtn">🚨SCC</button></a>
     <span class="hint">Type Grid: A0 001 to G5 100. Building data is empty for new input.</span>
 
-    <button id="toggleCategoriesBtn" type="button">📂 Buildings</button>
+    <button id="toggleCategoriesBtn" type="button">🏢Buildings</button>
 
 <div class="categoryBar collapsed">
   <select id="phSelect"><option value="">PH</option></select>
