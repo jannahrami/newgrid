@@ -834,6 +834,229 @@ body.uiHidden .mapWrap{
 }
 
 </style>
+
+<style id="PETRO_RABIGH_UI_THEME_V2_ONLY">
+/* Petro Rabigh UI Theme V2 - DESIGN ONLY, no data or JS changes */
+:root{
+  --pr-bg:#06120f;
+  --pr-panel:#081b17;
+  --pr-panel2:#0b2420;
+  --pr-green:#00A651;
+  --pr-green2:#19d27c;
+  --pr-teal:#18c7b8;
+  --pr-red:#d71920;
+  --pr-red2:#ff3b30;
+  --pr-yellow:#f4c430;
+  --pr-white:#f4f7f6;
+  --pr-muted:#9fb7b1;
+  --pr-border:rgba(25,210,124,.55);
+  --pr-glass:rgba(7,28,24,.78);
+}
+
+html,body{
+  background:
+    radial-gradient(circle at top left, rgba(0,166,81,.18), transparent 32%),
+    radial-gradient(circle at top right, rgba(215,25,32,.10), transparent 28%),
+    linear-gradient(180deg,#03100d 0%, #06120f 45%, #020807 100%) !important;
+  color:var(--pr-white) !important;
+}
+
+.topbar{
+  background:
+    linear-gradient(180deg, rgba(7,31,26,.96), rgba(3,14,12,.96)) !important;
+  border-bottom:1px solid rgba(0,166,81,.55) !important;
+  box-shadow:0 10px 28px rgba(0,0,0,.45), inset 0 -1px 0 rgba(25,210,124,.15) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.topbar strong,
+h1,h2,
+.title,
+.appTitle,
+#title{
+  color:var(--pr-white) !important;
+  text-shadow:0 0 16px rgba(0,166,81,.65) !important;
+  letter-spacing:.5px !important;
+}
+
+input,
+select,
+.categoryBar select,
+#gridInput,
+#buildingSelect{
+  background:linear-gradient(180deg, rgba(8,32,28,.96), rgba(4,18,16,.96)) !important;
+  color:var(--pr-white) !important;
+  border:1px solid rgba(25,210,124,.55) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.04),
+    0 0 12px rgba(0,166,81,.13) !important;
+  border-radius:12px !important;
+}
+
+input::placeholder{
+  color:rgba(244,247,246,.62) !important;
+}
+
+button{
+  border-radius:13px !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  color:var(--pr-white) !important;
+  background:linear-gradient(180deg, rgba(12,38,34,.95), rgba(5,20,18,.95)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 8px 18px rgba(0,0,0,.28) !important;
+  transition:transform .15s ease, box-shadow .15s ease, filter .15s ease !important;
+}
+
+button:active{
+  transform:scale(.97) !important;
+  filter:brightness(1.12) !important;
+}
+
+/* Main action buttons */
+#searchBtn{
+  background:linear-gradient(180deg, #00c66b, #007a3d) !important;
+  border-color:rgba(25,210,124,.75) !important;
+  box-shadow:0 0 18px rgba(0,166,81,.34), inset 0 1px 0 rgba(255,255,255,.16) !important;
+}
+
+#clearBtn{
+  background:linear-gradient(180deg, #263632, #111c19) !important;
+  border-color:rgba(255,255,255,.18) !important;
+  color:#e8eeee !important;
+}
+
+#toggleGtsBtn,
+#gtsBtn,
+#gts010Btn,
+button[id*="gts"],
+button[id*="GTS"]{
+  background:linear-gradient(180deg, #0bbf92, #006b57) !important;
+  border-color:rgba(24,199,184,.75) !important;
+  box-shadow:0 0 18px rgba(24,199,184,.28), inset 0 1px 0 rgba(255,255,255,.15) !important;
+}
+
+#shareBtn,
+button[onclick*="share"],
+button[onclick*="Share"]{
+  background:linear-gradient(180deg, #22d66f, #008b46) !important;
+  border-color:rgba(25,210,124,.8) !important;
+  box-shadow:0 0 18px rgba(0,166,81,.32), inset 0 1px 0 rgba(255,255,255,.15) !important;
+}
+
+#myLocationBtn{
+  background:linear-gradient(180deg, #22d66f, #008b46) !important;
+  border-color:rgba(25,210,124,.8) !important;
+}
+
+#emergencyBtn{
+  background:linear-gradient(180deg, #ff3b30, #a70e15) !important;
+  border-color:rgba(255,80,80,.82) !important;
+  box-shadow:0 0 18px rgba(215,25,32,.35), inset 0 1px 0 rgba(255,255,255,.16) !important;
+}
+
+#sosBtn{
+  background:linear-gradient(180deg, #ff3358, #c9001c) !important;
+  border-color:rgba(255,80,96,.82) !important;
+  box-shadow:0 0 18px rgba(215,25,32,.38), inset 0 1px 0 rgba(255,255,255,.16) !important;
+}
+
+#toggleCategoriesBtn,
+#toggleIndexBtn{
+  background:linear-gradient(180deg, #f4c430, #b98c00) !important;
+  color:#07110e !important;
+  border-color:rgba(244,196,48,.85) !important;
+  box-shadow:0 0 14px rgba(244,196,48,.28), inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+#zoomInBtn,
+#zoomOutBtn,
+#zoomResetBtn,
+#zoomLevel{
+  background:linear-gradient(180deg, #18c7b8, #006f67) !important;
+  border-color:rgba(24,199,184,.7) !important;
+  color:var(--pr-white) !important;
+}
+
+/* Status / hints */
+#status,
+.hint,
+.resultCard .gridText{
+  color:var(--pr-green2) !important;
+  text-shadow:0 0 10px rgba(0,166,81,.30) !important;
+}
+
+/* Results and info cards */
+.resultCard,
+.liveInfoPanel,
+.infoPanel,
+#liveInfo,
+#routeInfo{
+  background:linear-gradient(180deg, rgba(8,32,28,.96), rgba(4,18,16,.96)) !important;
+  border:1px solid rgba(25,210,124,.42) !important;
+  box-shadow:0 0 22px rgba(0,166,81,.18), inset 0 1px 0 rgba(255,255,255,.06) !important;
+  border-radius:16px !important;
+}
+
+/* Bottom live cards if present */
+.statCard,
+.infoCard,
+.metricCard,
+.card,
+[class*="Card"]{
+  border-color:rgba(25,210,124,.42) !important;
+}
+
+/* Building index */
+.buildingIndex{
+  background:linear-gradient(180deg, rgba(7,31,26,.96), rgba(3,14,12,.97)) !important;
+  border:1px solid rgba(25,210,124,.55) !important;
+  box-shadow:0 10px 24px rgba(0,0,0,.40), 0 0 18px rgba(0,166,81,.18) !important;
+}
+.buildingIndex b{
+  color:var(--pr-green2) !important;
+}
+
+/* Location marker keeps function, only visual polish */
+#myLocationPin{
+  background:var(--pr-green) !important;
+  box-shadow:0 0 0 8px rgba(0,166,81,.24), 0 0 20px 8px rgba(0,166,81,.45) !important;
+}
+
+/* Map frame only */
+.mapWrap{
+  border-top:1px solid rgba(25,210,124,.28) !important;
+  border-bottom:1px solid rgba(25,210,124,.28) !important;
+  background:#020807 !important;
+}
+
+/* Footer / credit */
+.credit{
+  color:rgba(244,247,246,.72) !important;
+}
+.credit b,
+.credit strong{
+  color:var(--pr-green2) !important;
+}
+
+/* Mobile polish */
+@media (max-width:768px){
+  .topbar{
+    background:
+      radial-gradient(circle at top, rgba(0,166,81,.20), transparent 42%),
+      linear-gradient(180deg, rgba(7,31,26,.98), rgba(3,14,12,.98)) !important;
+  }
+  button{
+    border-radius:12px !important;
+  }
+  input,
+  select,
+  .categoryBar select{
+    border-radius:12px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
