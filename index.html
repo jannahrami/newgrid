@@ -836,6 +836,30 @@ body.uiHidden .mapWrap{
   }
 }
 
+
+/* PASSWORD LOCK FIX V2 - requires exact password before opening app */
+#passwordLockOverlay{
+  position:fixed; inset:0; z-index:999999;
+  background:linear-gradient(135deg,#050505,#151515 55%,#260000);
+  display:flex; align-items:center; justify-content:center;
+  padding:22px; box-sizing:border-box;
+}
+#passwordLockCard{
+  width:min(420px,92vw); background:#1d1d1d; color:#fff;
+  border:1px solid #3a3a3a; border-radius:18px;
+  box-shadow:0 18px 55px rgba(0,0,0,.65);
+  padding:24px; text-align:center;
+}
+#passwordLockCard h2{ margin:0 0 8px; font-size:26px; }
+#passwordLockCard p{ margin:0 0 18px; color:#ccc; font-size:14px; }
+#passwordInput{
+  width:100%; box-sizing:border-box; margin-bottom:12px;
+  background:#fff; color:#111; text-align:center;
+}
+#passwordSubmitBtn{ width:100%; background:#ff3b30; color:#fff; }
+#passwordError{ min-height:20px; margin-top:10px; color:#ff6b6b; font-weight:bold; font-size:14px; }
+body.locked #appRoot{ filter:blur(4px); pointer-events:none; user-select:none; }
+
 </style>
 
 <style id="PETRO_RABIGH_UI_THEME_V2_ONLY">
@@ -1217,27 +1241,17 @@ body::after{
 }
 </style>
 </head>
-<body>
-<script>
-const password = "Prc2026";
-const entered = prompt("Enter Password");
-
-if (entered !== password) {
-    document.body.innerHTML = `
-    <div style="
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        height:100vh;
-        background:#111;
-        color:white;
-        font-family:Arial;
-        font-size:28px;">
-        Access Denied
-    </div>`;
-    throw new Error("Wrong Password");
-}
-</script>
+<body class="locked">
+<div id="passwordLockOverlay" role="dialog" aria-modal="true">
+  <div id="passwordLockCard">
+    <h2>🔒 SD Navigator</h2>
+    <p>Enter password to open the application</p>
+    <input id="passwordInput" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Password" />
+    <button id="passwordSubmitBtn" type="button">OK</button>
+    <div id="passwordError"></div>
+  </div>
+</div>
+<div id="appRoot">
 
 <div id="splashScreen" aria-label="SD Navigator loading screen">
   <div class="splashCard">
@@ -1246,7 +1260,6 @@ if (entered !== password) {
     <div class="splashSub">Petro Rabigh Security Department</div>
     <div class="splashLine"><span></span></div>
   </div>
-</div>
 </div>
 
 <button id="showHeaderBtn" type="button">☰ Show</button>
@@ -1354,7 +1367,42 @@ EG : Emergancy Gate<br>
 
 <div class="credit">Created by: ISD Shift A Team </div>
 
+</div>
 <script>
+const APP_PASSWORD = "Prc2026";
+(function(){
+  function unlock(){
+    sessionStorage.setItem("sdNavigatorUnlocked", "true");
+    document.body.classList.remove("locked");
+    const overlay = document.getElementById("passwordLockOverlay");
+    if (overlay) overlay.style.display = "none";
+  }
+  function initPasswordLock(){
+    const overlay = document.getElementById("passwordLockOverlay");
+    const input = document.getElementById("passwordInput");
+    const btn = document.getElementById("passwordSubmitBtn");
+    const err = document.getElementById("passwordError");
+    if (!overlay || !input || !btn) return;
+    if (sessionStorage.getItem("sdNavigatorUnlocked") === "true") { unlock(); return; }
+    overlay.style.display = "flex";
+    document.body.classList.add("locked");
+    setTimeout(() => input.focus(), 250);
+    function checkPassword(e){
+      if (e) e.preventDefault();
+      const value = (input.value || "").trim();
+      if (value === APP_PASSWORD) { unlock(); return false; }
+      if (err) err.textContent = "Wrong password";
+      input.value = "";
+      input.focus();
+      return false;
+    }
+    btn.addEventListener("click", checkPassword);
+    input.addEventListener("keydown", function(e){ if (e.key === "Enter") checkPassword(e); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initPasswordLock);
+  else initPasswordLock();
+})();
+
 const IMAGE_W = 1393.710;
 const grid = {"left": 91.710, "top": 112.5, "cellW": 170.3, "cellH": 170.3, "cols": ["A", "B", "C", "D", "E", "F", "G"], "rows": ["0", "1", "2", "3", "4", "5"]};
 const cols = grid.cols;
