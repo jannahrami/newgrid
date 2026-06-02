@@ -73,6 +73,7 @@ content="PRC Grid Finder">
   .hint { color: #ccc; font-size: 14px; }
   #status { font-size: 15px; color: #ffd35a; }
   .mapWrap {
+    z-index:1 !important;
     position: relative;
     width:100vw;
     margin: 0 auto;
@@ -362,7 +363,7 @@ display:none;
 .buildingIndex{
   position:fixed !important;
   left:12px !important;
-  top:320px !important;
+  top:180px !important;
   bottom:auto !important;
   width:205px !important;
   padding:12px 13px !important;
@@ -378,7 +379,7 @@ display:none;
   border-radius:12px !important;
   box-shadow:0 8px 18px rgba(0,0,0,0.35) !important;
   opacity:1 !important;
-  z-index:9999 !important;
+  z-index:99999999 !important;
 }
 
 .buildingIndex b{
@@ -1532,6 +1533,15 @@ const buildings = [
   { id:"PIB45", name:"EVA-LDPE", grid:"G4 047" },
   { id:"PIB46", name:"MMA", grid:"F4 069" },
   { id:"PIB47", name:"PMMA", grid:"G3 068" },
+  {id:"KEROSEN", name:"KEROSEN", grid:"D3 066"},
+{id:"CDU", name:"CDU", grid:"D3 075"},
+{id:"NAPTHA MEROX", name:"NAPTHA MEROX", grid:"D3 076"},
+{id:"AMIN UNIT", name:"AMIN UNIT", grid:"D3 086"},
+{id:"SRU 3", name:"SRU 3", grid:"D3 087"},
+{id:"SRU 1", name:"SRU 1", grid:"D3 089"},
+{id:"DHS", name:"DHS", grid:"D3 096"},
+{id:"SRU", name:"SRU", grid:"D3 097"},
+{id:"SRU 2", name:"SRU 2", grid:"D3 099"},
   { id:"PIB52", name:"NYLON 6", grid:"F5 007" },
   { id:"PIB61", name:"UTILITY", grid:"F5 009" },
   { id:"PIB63", name:"WWT ll", grid:"D5 002" },
