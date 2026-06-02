@@ -365,7 +365,7 @@ display:none;
 .buildingIndex{
   position:fixed !important;
   left:12px !important;
-  top:145px !important;
+  top:250px !important;
   bottom:auto !important;
   width:205px !important;
   padding:12px 13px !important;
@@ -408,7 +408,7 @@ display:none;
 .buildingIndex{
   position:fixed !important;
   left:12px !important;
-  top:145px !important;
+  top:250px !important;
   z-index:2147483647 !important;
   max-height:calc(100vh - 170px) !important;
   overflow:auto !important;
@@ -2229,8 +2229,24 @@ gridInput.addEventListener("input",updateSuggestions);
     if(unitsSel){
       resetSelect(unitsSel);
 
+      // Units dropdown dedupe fix: keep one visible option per unit name.
+      // Prefer the real unit ID (ex: VDU, VGO, ASU) over old generic id:"Units" rows.
+      const unitByLabel = new Map();
       buildings
         .filter(b => !used.has(b.id) || formatId(b.id) === "CT4")
+        .forEach(b=>{
+          const label = optionText(b).trim().toUpperCase().replace(/\s+/g," ");
+          if(!label) return;
+          const old = unitByLabel.get(label);
+          const bIsGeneric = formatId(b.id) === "UNITS";
+          const oldIsGeneric = old ? formatId(old.id) === "UNITS" : false;
+          // If the same unit name exists twice, keep the cleaner/non-generic entry.
+          if(!old || (oldIsGeneric && !bIsGeneric)){
+            unitByLabel.set(label, b);
+          }
+        });
+
+      Array.from(unitByLabel.values())
         .sort((a,b)=> optionText(a).localeCompare(optionText(b), undefined, {numeric:true, sensitivity:"base"}))
         .forEach(b=>addOption(unitsSel,b));
 
