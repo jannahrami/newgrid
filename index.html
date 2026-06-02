@@ -117,8 +117,7 @@ content="PRC Grid Finder">
   #shareBtn { background: #25D366; color: white; }
   #emergencyBtn { background:#ff0000; color:#fff; }
   #sosBtn { background:#ff1744; color:#fff; }
-  #smsBtn { background:#ff9500; color:#111; }
-
+  
   #myLocationBtn { background: #34c759; color: white; }
   #myLocationPin {
     position:absolute;
@@ -282,6 +281,10 @@ display:none;
     font-size:11px !important;
     padding:5px 9px !important;
     min-height:31px !important;
+    width:80px !important;
+min-width:80px !important;
+max-width:80px !important;
+flex:0 0 80px !important;
   }
 
   #clearBtn{
@@ -311,7 +314,6 @@ display:none;
   #shareBtn,
   #emergencyBtn,
   #sosBtn,
-  #smsBtn,
   #toggleCategoriesBtn,
   button[onclick*="share"],
   button[onclick*="Share"]{
@@ -320,14 +322,16 @@ display:none;
     min-height:30px !important;
   }
 
-  #gridInput{
+ #gridInput{
     font-size:14px !important;
     padding:5px 8px !important;
     height:32px !important;
-    width:115px !important;
-    min-width:115px !important;
-    max-width:115px !important;
-  }
+    width:90px !important;
+min-width:90px !important;
+max-width:90px !important;
+    display:inline-block !important;
+    flex:0 0 90px !important;
+}
 
   .categoryBar select{
     /* keep dropdowns comfortable, only slight adjustment */
@@ -692,7 +696,6 @@ display:none;
 #emergencyBtn{order:14 !important;}
 a:has(#sosBtn){order:15 !important;}
 #sosBtn{order:15 !important;}
-#smsBtn{order:16 !important;}
 #toggleCategoriesBtn{order:16 !important;}
 .categoryBar{order:17 !important;}
 .hint{order:18 !important;}
@@ -859,6 +862,40 @@ body.uiHidden .mapWrap{
 #passwordSubmitBtn{ width:100%; background:#ff3b30; color:#fff; }
 #passwordError{ min-height:20px; margin-top:10px; color:#ff6b6b; font-weight:bold; font-size:14px; }
 body.locked #appRoot{ filter:blur(4px); pointer-events:none; user-select:none; }
+
+
+/* === FINAL FIX: Search input + Search button row === */
+.topbar .searchInlineRow{
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:8px !important;
+  width:100% !important;
+  max-width:420px !important;
+  margin:8px auto 6px auto !important;
+  flex-wrap:nowrap !important;
+}
+
+.topbar .searchInlineRow #gridInput{
+  width:180px !important;
+  min-width:180px !important;
+  max-width:180px !important;
+  flex:0 0 180px !important;
+  box-sizing:border-box !important;
+}
+
+.topbar .searchInlineRow #searchBtn{
+  width:86px !important;
+  min-width:86px !important;
+  max-width:86px !important;
+  flex:0 0 86px !important;
+  white-space:nowrap !important;
+  box-sizing:border-box !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
 
 </style>
 
@@ -1240,6 +1277,87 @@ body::after{
   }
 }
 </style>
+
+<style id="SEARCH_LINE_FINAL_FIX">
+/* Final override: keep search box + Search button on one clean line without breaking suggestions */
+.topbar .searchLineFixed{
+  order:2 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:6px !important;
+  width:auto !important;
+  max-width:calc(100vw - 18px) !important;
+  margin:2px auto 6px auto !important;
+  flex:0 0 auto !important;
+  overflow:visible !important;
+}
+.topbar .searchLineFixed #gridInput{
+  order:0 !important;
+  width:118px !important;
+  min-width:118px !important;
+  max-width:118px !important;
+  flex:0 0 118px !important;
+  display:block !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
+  height:32px !important;
+}
+.topbar .searchLineFixed #searchBtn{
+  order:0 !important;
+  width:78px !important;
+  min-width:78px !important;
+  max-width:78px !important;
+  flex:0 0 78px !important;
+  display:block !important;
+  margin:0 !important;
+  white-space:nowrap !important;
+  height:32px !important;
+  min-height:32px !important;
+  padding:5px 9px !important;
+  box-sizing:border-box !important;
+}
+@media (max-width:768px){
+  .topbar .searchLineFixed{width:auto !important; max-width:calc(100vw - 18px) !important;}
+  .topbar .searchLineFixed #gridInput{width:112px !important; min-width:112px !important; max-width:112px !important; flex-basis:112px !important;}
+  .topbar .searchLineFixed #searchBtn{width:76px !important; min-width:76px !important; max-width:76px !important; flex-basis:76px !important;}
+}
+</style>
+
+<style>
+/* === FINAL FIX: Search input + Search button row === */
+.topbar .searchInlineRow{
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:8px !important;
+  width:100% !important;
+  max-width:420px !important;
+  margin:8px auto 6px auto !important;
+  flex-wrap:nowrap !important;
+}
+
+.topbar .searchInlineRow #gridInput{
+  width:180px !important;
+  min-width:180px !important;
+  max-width:180px !important;
+  flex:0 0 180px !important;
+  box-sizing:border-box !important;
+}
+
+.topbar .searchInlineRow #searchBtn{
+  width:86px !important;
+  min-width:86px !important;
+  max-width:86px !important;
+  flex:0 0 86px !important;
+  white-space:nowrap !important;
+  box-sizing:border-box !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+</style>
 </head>
 <body class="locked">
 <div id="passwordLockOverlay" role="dialog" aria-modal="true">
@@ -1270,14 +1388,19 @@ body::after{
       <button id="resetZoomBtn" type="button">🔄 Reset</button>
       <button id="hideHeaderBtn" type="button">👁️ Hide</button>
     </div>
-    <input id="gridInput" list="gridSuggestions" placeholder="Example: E5 003 or add new building data" value="" />
+    <div class="searchLineFixed">
+    <div class="searchInlineRow">
+<input id="gridInput" list="gridSuggestions" placeholder="Example: E5 003 or add new building data" value="" />
+    <button id="searchBtn" type="button">Search</button>
+</div>
+    </div>
 <datalist id="gridSuggestions"></datalist>
     <select id="buildingSelect">
 <option value="">🏢 Select Building</option>
 </select>
 
 
-    <button id="searchBtn">Search</button>
+
     <button id="clearBtn">Clear</button>
     <button id="zoomOutBtn">− Zoom</button>
     <button id="zoomInBtn">+ Zoom</button>
@@ -1294,9 +1417,7 @@ body::after{
     <button id="myLocationBtn">📍 My Location</button>
     <button id="emergencyBtn">🏠Find SIP</button>
 <a href="tel:0124251555"><button id="sosBtn">🚨SCC</button></a>
-    <button id="smsBtn" type="button">📩 SMS</button>
-    <span class="hint">Type Grid: A0 001 to G5 100. Building data is empty for new input.</span>
-
+  
     <button id="toggleCategoriesBtn" type="button">🏢Buildings</button>
 
 <div class="categoryBar collapsed">
@@ -2905,8 +3026,16 @@ function handleGpsPosition(pos, shouldScroll) {
     const dirEl = document.getElementById("liveDirection");
 
     if (gridEl) gridEl.textContent = nearest.replace(/\s+/g, "");
-    if (distEl) distEl.textContent = routeMeters !== null ? (routeMeters + "m") : "--";
-    if (dirEl) dirEl.textContent = dirText;
+    if (distEl) distEl.textContent = routeMeters !== null ? (routeMeters >= 1000 ? (routeMeters/1000).toFixed(1) + " km" : routeMeters + " m") : "--";
+    
+if (distEl) {
+  distEl.style.color =
+    routeMeters === null ? "#ffffff" :
+    routeMeters <= 200 ? "#00ff66" :
+    routeMeters <= 1000 ? "#ffd400" :
+    "#ff4444";
+}
+if (dirEl) dirEl.textContent = dirText;
   } catch(e){}
 
   const pin = document.getElementById("myLocationPin");
@@ -3725,6 +3854,71 @@ let lastTouchEnd = 0;
     }
     lastTouchEnd = now;
   }, { passive:false });
+})();
+</script>
+
+
+<script id="SEARCH_BUTTON_FINAL_REBIND">
+(function(){
+  function runSearch(){
+    var input=document.getElementById('gridInput');
+    var value=input ? input.value : '';
+    try{ window.autoZoomNextSearch=true; }catch(e){}
+    if(typeof window.highlight==='function'){
+      try{ window.highlight(value); }catch(e){ try{ highlight(value); }catch(err){} }
+    }else if(typeof highlight==='function'){
+      try{ highlight(value); }catch(e){}
+    }
+    try{ if(typeof updateDirectRoute==='function') setTimeout(updateDirectRoute,80); }catch(e){}
+  }
+  function bind(){
+    var btn=document.getElementById('searchBtn');
+    var input=document.getElementById('gridInput');
+    if(btn){
+      btn.type='button';
+      btn.onclick=function(e){ if(e) e.preventDefault(); runSearch(); return false; };
+    }
+    if(input && !input.dataset.searchEnterFixed){
+      input.dataset.searchEnterFixed='1';
+      input.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); runSearch(); }});
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bind); else bind();
+  window.addEventListener('load',bind);
+})();
+</script>
+
+<script>
+(function(){
+  function runSearchFromButton(){
+    var input = document.getElementById('gridInput');
+    var value = input ? input.value : '';
+    try {
+      if (typeof highlight === 'function') {
+        window.autoZoomNextSearch = true;
+        highlight(value);
+        return;
+      }
+    } catch(e){}
+    try {
+      if (typeof searchGrid === 'function') { searchGrid(); return; }
+    } catch(e){}
+    try {
+      if (typeof doSearch === 'function') { doSearch(); return; }
+    } catch(e){}
+  }
+  window.addEventListener('load', function(){
+    var btn = document.getElementById('searchBtn');
+    var input = document.getElementById('gridInput');
+    if(btn){
+      btn.onclick = function(e){ e.preventDefault(); runSearchFromButton(); };
+    }
+    if(input){
+      input.addEventListener('keydown', function(e){
+        if(e.key === 'Enter'){ e.preventDefault(); runSearchFromButton(); }
+      });
+    }
+  });
 })();
 </script>
 
