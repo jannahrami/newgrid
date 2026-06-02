@@ -22,7 +22,7 @@ content="black">
 name="apple-mobile-web-app-title"
 content="PRC Grid Finder">
  <link rel="apple-touch-icon" href="IMG_5991.png"> 
-<title>ISD Navigator</title>
+<title>SD Navigator</title>
 <!-- BIG_GRID_YELLOW_FIX_V1: yellow when live location enters same major grid like F4 -->
 <!-- ROUTE_DIRECTION_ARROW_V1: arrow from live location to selected target -->
 <!-- ROUTE_COLOR_YELLOW_GRID_FIX_V1: yellow uses resolved target grid label -->
@@ -117,6 +117,7 @@ content="PRC Grid Finder">
   #shareBtn { background: #25D366; color: white; }
   #emergencyBtn { background:#ff0000; color:#fff; }
   #sosBtn { background:#ff1744; color:#fff; }
+  #smsBtn { background:#ff9500; color:#111; }
 
   #myLocationBtn { background: #34c759; color: white; }
   #myLocationPin {
@@ -310,6 +311,7 @@ display:none;
   #shareBtn,
   #emergencyBtn,
   #sosBtn,
+  #smsBtn,
   #toggleCategoriesBtn,
   button[onclick*="share"],
   button[onclick*="Share"]{
@@ -397,7 +399,7 @@ display:none;
 
 
 
-/* ===== ISD Navigator Cinematic Splash Screen ===== */
+/* ===== SD Navigator Cinematic Splash Screen ===== */
 #splashScreen{
   position:fixed;
   inset:0;
@@ -690,6 +692,7 @@ display:none;
 #emergencyBtn{order:14 !important;}
 a:has(#sosBtn){order:15 !important;}
 #sosBtn{order:15 !important;}
+#smsBtn{order:16 !important;}
 #toggleCategoriesBtn{order:16 !important;}
 .categoryBar{order:17 !important;}
 .hint{order:18 !important;}
@@ -833,18 +836,6 @@ body.uiHidden .mapWrap{
   }
 }
 
-
-#indexHeader{
-width:100%;
-text-align:center;
-font-size:12px;
-color:#cfcfcf;
-margin-bottom:6px;
-display:block;
-}
-@media (max-width:1024px), (hover:none), (pointer:coarse){
-#indexHeader{display:none !important;}
-}
 </style>
 
 <style id="PETRO_RABIGH_UI_THEME_V2_ONLY">
@@ -1228,10 +1219,10 @@ body::after{
 </head>
 <body>
 
-<div id="splashScreen" aria-label="ISD Navigator loading screen">
+<div id="splashScreen" aria-label="SD Navigator loading screen">
   <div class="splashCard">
     <div class="splashLogo" aria-hidden="true"></div>
-    <div class="splashTitle">ISD Navigator</div>
+    <div class="splashTitle">SD Navigator</div>
     <div class="splashSub">Petro Rabigh Security Department</div>
     <div class="splashLine"><span></span></div>
   </div>
@@ -1241,8 +1232,7 @@ body::after{
 <button id="showHeaderBtn" type="button">☰ Show</button>
 
 <div class="topbar">
-<div id="indexHeader">PR = Buildings | WR = Warehouses | PIB = Shelter | SS = Substation | PH = Pump House</div>
-    <div class="isdHeaderTitle">ISD Navigator</div>
+    <div class="isdHeaderTitle">SD Navigator</div>
     <div class="headerQuickControls">
       <button id="resetZoomBtn" type="button">🔄 Reset</button>
       <button id="hideHeaderBtn" type="button">👁️ Hide</button>
@@ -1271,6 +1261,7 @@ body::after{
     <button id="myLocationBtn">📍 My Location</button>
     <button id="emergencyBtn">🏠Find SIP</button>
 <a href="tel:0124251555"><button id="sosBtn">🚨SCC</button></a>
+    <button id="smsBtn" type="button">📩 SMS</button>
     <span class="hint">Type Grid: A0 001 to G5 100. Building data is empty for new input.</span>
 
     <button id="toggleCategoriesBtn" type="button">🏢Buildings</button>
@@ -2897,6 +2888,105 @@ function showMyLocation() {
 }
 
 document.getElementById("myLocationBtn").onclick = showMyLocation;
+
+
+/* ===== SMS Emergency Location - ADDED =====
+   Change SMS_PHONE_NUMBER to the control/mobile number if needed.
+   iPhone uses: sms:number&body=message
+   Android uses: sms:number?body=message
+*/
+const SMS_PHONE_NUMBER = "0554345426";
+
+function cleanSmsText(v){
+  return String(v || "").replace(/\s+/g, " ").trim();
+}
+
+function getSelectedTargetSmsInfo(){
+  const input = document.getElementById("gridInput");
+  const raw = input ? cleanSmsText(input.value) : "";
+  if(!raw) return { text:"No selected target", grid:"" };
+  try{
+    const resolved = resolveInput(raw);
+    const parsed = parseInput(resolved.gridValue);
+    const gridLabel = parsed.col + parsed.row + " " + String(parsed.sub).padStart(3,"0");
+    if(resolved.building){
+      return {
+        text: cleanSmsText(formatBuildingId(resolved.building.id) + " - " + resolved.building.name + " | Grid: " + gridLabel),
+        grid: gridLabel
+      };
+    }
+    return { text:"Selected Grid: " + gridLabel, grid:gridLabel };
+  }catch(e){
+    return { text:"Selected input: " + raw, grid:"" };
+  }
+}
+
+function openSmsApp(message){
+  const number = SMS_PHONE_NUMBER;
+  const sep = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "&" : "?";
+  window.location.href = "sms:" + encodeURIComponent(number) + sep + "body=" + encodeURIComponent(message);
+}
+
+function buildSmsMessage(currentGrid, lat, lng){
+  const target = getSelectedTargetSmsInfo();
+  const lines = [
+    "ISD Navigator Emergency Location",
+    "Current Grid: " + (currentGrid || "Not available"),
+    "Target: " + target.text
+  ];
+  if(lat && lng){
+    lines.push("GPS: https://maps.google.com/?q=" + lat + "," + lng);
+  }
+  lines.push("Please respond / dispatch support.");
+  return lines.join("\n");
+}
+
+function sendSmsLocation(){
+  const status = document.getElementById("status");
+  const btn = document.getElementById("smsBtn");
+
+  function done(message){
+    if(btn) btn.disabled = false;
+    if(status) status.textContent = "📩 فتح تطبيق الرسائل مع الموقع";
+    openSmsApp(message);
+  }
+
+  if(btn) btn.disabled = true;
+  if(status) status.textContent = "📩 جاري تجهيز رسالة SMS بالموقع...";
+
+  if(window.lastMyLocationMapXY){
+    const currentGrid = nearestGridFromXY(window.lastMyLocationMapXY.x, window.lastMyLocationMapXY.y);
+    done(buildSmsMessage(currentGrid, null, null));
+    return;
+  }
+
+  if(!navigator.geolocation){
+    done(buildSmsMessage("GPS not supported", null, null));
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(function(pos){
+    try{
+      const lat = pos.coords.latitude.toFixed(6);
+      const lng = pos.coords.longitude.toFixed(6);
+      const xy = gpsToMapXY(pos.coords.latitude, pos.coords.longitude);
+      window.lastMyLocationMapXY = xy;
+      updateMyLocationMarker();
+      updateDirectRoute();
+      const currentGrid = nearestGridFromXY(xy.x, xy.y);
+      done(buildSmsMessage(currentGrid, lat, lng));
+    }catch(e){
+      done(buildSmsMessage("Unable to calculate grid", null, null));
+    }
+  }, function(err){
+    if(btn) btn.disabled = false;
+    if(status) status.textContent = "ما قدر يحدد GPS، فتح SMS بدون موقع مباشر";
+    done(buildSmsMessage("GPS permission denied/unavailable", null, null));
+  }, { enableHighAccuracy:true, timeout:15000, maximumAge:0 });
+}
+
+const smsBtnEl = document.getElementById("smsBtn");
+if(smsBtnEl) smsBtnEl.onclick = sendSmsLocation;
 
 /* ===== Emergency: Find nearest PIB from existing buildings only ===== */
 function getExistingPibBuildings(){
