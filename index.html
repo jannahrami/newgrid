@@ -1218,6 +1218,26 @@ body::after{
 </style>
 </head>
 <body>
+<script>
+const password = "Prc2026";
+const entered = prompt("Enter Password");
+
+if (entered !== password) {
+    document.body.innerHTML = `
+    <div style="
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        background:#111;
+        color:white;
+        font-family:Arial;
+        font-size:28px;">
+        Access Denied
+    </div>`;
+    throw new Error("Wrong Password");
+}
+</script>
 
 <div id="splashScreen" aria-label="SD Navigator loading screen">
   <div class="splashCard">
