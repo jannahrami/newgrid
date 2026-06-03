@@ -287,10 +287,12 @@ max-width:80px !important;
 flex:0 0 80px !important;
   }
 
-  #clearBtn{
-    font-size:10px !important;
-    padding:5px 8px !important;
+ #clearBtn{
+    font-size:11px !important;
+    padding:5px 14px !important;
     min-height:30px !important;
+    min-width:90px !important;
+
   }
 
   #gridBtn,
@@ -1396,7 +1398,7 @@ body::after{
     </div>
 <datalist id="gridSuggestions"></datalist>
     <select id="buildingSelect">
-<option value="">🏢 Select Building</option>
+<option value="">🏫 Select Building</option>
 </select>
 
 
@@ -1406,7 +1408,7 @@ body::after{
     <button id="zoomInBtn">+ Zoom</button>
     <button id="zoomResetBtn">Reset Zoom</button>
     <span id="zoomLevel">100%</span>
-    <button id="toggleGtsBtn" type="button">📍 GTS</button>
+    <button id="toggleGtsBtn" type="button">🚓 GTS</button>
     <div class="gtsBar collapsed">
       <button id="gtsBtn">011 GTS</button>
       <button id="gts010Btn">010 GTS</button>
@@ -1416,9 +1418,9 @@ body::after{
     <button id="shareBtn">💬Share Map</button>
     <button id="myLocationBtn">📍 My Location</button>
     <button id="emergencyBtn">🏠Find SIP</button>
-<a href="tel:0124251555"><button id="sosBtn">🚨SCC</button></a>
+<a href="tel:0124251555"><button id="sosBtn">📲SCC</button></a>
   
-    <button id="toggleCategoriesBtn" type="button">🏢Buildings</button>
+    <button id="toggleCategoriesBtn" type="button">🏢 Buildings</button>
 
 <div class="categoryBar collapsed">
   <select id="phSelect"><option value="">PH</option></select>
@@ -2021,94 +2023,12 @@ const buildings = [
 { id:"MEG AS01", name:"ANALYZER SHELTER 1 (MEG)", grid:"E4 021" },
 { id:"MEG AS02", name:"ANALYZER SHELTER 1 (MEG)", grid:"E4 021" },
 
-{ id:"REFINERY", name:"VDU", grid:"D3 069" },
-{ id:"REFINERY", name:"VGO", grid:"D3 070" },
-{ id:"REFINERY", name:"SWS - 3 UNIT", grid:"E3 092" },
-{ id:"REFINERY", name:"SRU 1/2 UNIT", grid:"D3 090" },
-{ id:"REFINERY", name:"ARU 2 UNIT", grid:"E3 082" },
-{ id:"REFINERY", name:"ARU 3 UNIT", grid:"E3 091" },
-{ id:"REFINERY", name:"SRU - 1 UNIT", grid:"D3 089" },
-{ id:"REFINERY", name:"C4 ALKYLATION UNIT", grid:"E3 085" },
-{ id:"REFINERY", name:"C4 ISOMER UNIT", grid:"E3 094" },
-{ id:"REFINERY", name:"SAP UNIT", grid:"E3 093" },
-{ id:"REFINERY", name:"CLEAN FULE", grid:"D3 068" },
-
-{ id:"U & OM", name:"ASU", grid:"E4 055" },
-{ id:"U & OM", name:"CAS", grid:"E4 053" },
-{ id:"U & OM", name:"CT-4", grid:"E4 053" },
-{ id:"U & OM", name:"FG", grid:"E4 014" },
-{ id:"U & OM", name:"CCR1", grid:"E4 015" },
-{ id:"U & OM", name:"OPERATION SHELTER 204", grid:"E4 063" },
-{ id:"U & OM", name:"SGA", grid:"D3 078" },
-{ id:"U & OM", name:"SWI CONTROL", grid:"C5 018" },
-{ id:"U & OM", name:"MECO", grid:"C5 017" },
-{ id:"U & OM", name:"SWI HEADER", grid:"C5 027" },
 
 { id:"RAWEC ADMIN BUILDING", name:"RAWEC ADMIN BUILDING", grid:"E4 068" },
 { id:"RAWEC DESALINATION PLANT", name:"RAWEC DESALINATION PLANT", grid:"D5 007" },
 { id:"RAWEC DESAL CONTROL ROOM", name:"RAWEC DESAL CONTROL ROOM", grid:"D5 005" },
 { id:"RAWEC DESAL SUB STATION", name:"RAWEC DESAL SUB STATION", grid:"D5 006" },
 { id:"IWSPP-II", name:"IWSPP-II", grid:"F4 036" },
-{ id:"Units", name:"Naphtha Reformer", grid:"F4 085" },
-{ id:"Units", name:"Aromatics", grid:"F4 089" },
-{ id:"Units", name:"Nylon-6", grid:"G4 088" },
-{ id:"Units", name:"Cumene", grid:"G4 083" },
-{ id:"Units", name:"Phenol", grid:"G4 093" },
-{ id:"Units", name:"MTBE/ISOBUTYLENE", grid:"F4 030" },
-{ id:"Units", name:"METATHESIS", grid:"F4 020" },
-{ id:"Units", name:"EPR", grid:"G4 015" },
-{ id:"Units", name:"TPO", grid:"G3 096" },
-{ id:"Units", name:"LDPE/EVA", grid:"G4 035" },
-{ id:"Units", name:"MMA", grid:"F4 060" },
-{ id:"Units", name:"PMMA", grid:"G3 076" },
-{ id:"Units", name:"ASU", grid:"F5 007" },
-{ id:"Units", name:"FIRE WATER PUMP", grid:"G5 003" },
-{ id:"Units", name:"WWT", grid:"D5 003" },
-{ id:"Units", name:"INCINERATOR", grid:"G5 001" },
-{ id:"Units", name:"CAS", grid:"F5 008" },
-{ id:"Units", name:"EC ANALYZER SHELTER 1", grid:"E3 096" },
-{ id:"Units", name:"EC ANALYZER SHELTER 2", grid:"E3 096" },
-{ id:"Units", name:"EC ANALYZER SHELTER 3", grid:"E3 088" },
-{ id:"Units", name:"EC ANALYZER SHELTER 4", grid:"E3 088" },
-{ id:"Units", name:"EC ANALYZER SHELTER 5", grid:"E3 098" },
-{ id:"Units", name:"EC ANALYZER SHELTER 6", grid:"E3 084" },
-{ id:"Units", name:"EC ANALYZER SHELTER 7", grid:"E3 099" },
-{ id:"Units", name:"EC ANALYZER SHELTER 8", grid:"E3 099" },
-{ id:"Units", name:"Main Pipe Rack (Col. 59)", grid:"E4 022" },
-{ id:"Units", name:"Main Pipe Rack (Col. 50)", grid:"E4 022" },
-{ id:"Units", name:"EO Reactor Structure Top Floor (South)", grid:"E4 022" },
-{ id:"Units", name:"K-2210 structure(North)", grid:"E4 032" },
-{ id:"Units", name:"EO Reactor structure Top Floor (South)", grid:"E4 032" },
-{ id:"Units", name:"Pipe Rack (PIB22 West)", grid:"E4 032" },
-{ id:"Units", name:"Main Pipe Rack (Col. 11)", grid:"E4 032" },
-{ id:"Units", name:"ANALYZER SHELTER 1 (MEG)", grid:"E4 021" },
-{ id:"Units", name:"VDU", grid:"D3 069" },
-{ id:"Units", name:"VGO", grid:"D3 070" },
-{ id:"Units", name:"SWS - 3 UNIT", grid:"E3 092" },
-{ id:"Units", name:"SRU 1/2 UNIT", grid:"D3 090" },
-{ id:"Units", name:"ARU 2 UNIT", grid:"E3 082" },
-{ id:"Units", name:"ARU 3 UNIT", grid:"E3 091" },
-{ id:"Units", name:"SRU - 1 UNIT", grid:"D3 089" },
-{ id:"Units", name:"C4 ALKYLATION UNIT", grid:"E3 085" },
-{ id:"Units", name:"C4 ISOMER UNIT", grid:"E3 094" },
-{ id:"Units", name:"SAP UNIT", grid:"E3 093" },
-{ id:"Units", name:"CLEAN FULE", grid:"D3 068" },
-{ id:"Units", name:"ASU", grid:"E4 055" },
-{ id:"Units", name:"CAS", grid:"E4 053" },
-{ id:"Units", name:"CT-4", grid:"E4 053" },
-{ id:"Units", name:"FG", grid:"E4 014" },
-{ id:"Units", name:"CCR1", grid:"E4 015" },
-{ id:"Units", name:"OPERATION SHELTER 204", grid:"E4 063" },
-{ id:"Units", name:"SGA", grid:"D3 078" },
-{ id:"Units", name:"SWI CONTROL", grid:"C5 018" },
-{ id:"Units", name:"MECO", grid:"C5 017" },
-{ id:"Units", name:"SWI HEADER", grid:"C5 027" },
-{ id:"Units", name:"RAWEC ADMIN BUILDING", grid:"E4 068" },
-{ id:"Units", name:"RAWEC DESALINATION PLANT", grid:"D5 007" },
-{ id:"Units", name:"RAWEC DESAL CONTROL ROOM", grid:"D5 005" },
-{ id:"Units", name:"RAWEC DESAL SUB STATION", grid:"D5 006" },
-{ id:"Units", name:"IWSPP-II", grid:"F4 036" },
-
 
 { id:"BT 2", name:"BT 2", grid:"B3 032" },
 { id:"BT 3", name:"BT 3", grid:"A3 028" },
@@ -2155,67 +2075,106 @@ const buildings = [
 { id:"MSFIP 2", name:"MSFIP 2", grid:"B4 098" },
 
 
-  { id:"CFP", name:"", grid:"D3 067" },
-  { id:"SGA", name:"", grid:"D3 068" },
-  { id:"VDU", name:"", grid:"D3 079" },
-  { id:"HPU", name:"", grid:"E3 062" },
-  { id:"VGO", name:"", grid:"E3 072" },
-  { id:"ARU 2", name:"", grid:"E3 081" },
-  { id:"ARU 3", name:"", grid:"E3 091" },
-  { id:"SWS", name:"", grid:"E3 082" },
-  { id:"C4 ISOM", name:"", grid:"E3 094" },
-  { id:"C4 ALKYLATION", name:"", grid:"E3 095" },
-  { id:"FG", name:"", grid:"E4 014" },
-  { id:"MEG", name:"", grid:"E4 022" },
-  { id:"POX", name:"", grid:"E4 013" },
-  { id:"HOFCC", name:"", grid:"E3 077" },
-  { id:"ECR", name:"", grid:"E3 097" },
-  { id:"STG 1", name:"", grid:"E4 030" },
-  { id:"STG 2", name:"", grid:"E4 030" },
-  { id:"STG 3", name:"", grid:"F4 021" },
-  { id:"STG 4", name:"", grid:"F4 021" },
-  { id:"STG 5", name:"", grid:"F4 022" },
-  { id:"STG 6", name:"", grid:"F4 024" },
-  { id:"STG 7", name:"", grid:"F4 025" },
-  { id:"BLR 1", name:"", grid:"E4 039" },
-  { id:"BLR 2", name:"", grid:"E4 039" },
-  { id:"BLR 3", name:"", grid:"E4 040" },
-  { id:"BLR 4", name:"", grid:"E4 040" },
-  { id:"BLR 5", name:"", grid:"F4 031" },
-  { id:"BLR 6", name:"", grid:"F4 031" },
-  { id:"BLR 7", name:"", grid:"F4 031" },
-  { id:"BLR 8", name:"", grid:"F4 032" },
-  { id:"BLR 9", name:"", grid:"F4 032" },
-  { id:"BLR 10", name:"", grid:"F4 034" },
-  { id:"BLR 11", name:"", grid:"F4 034" },
-  { id:"BLR 12", name:"", grid:"F4 035" },
-  { id:"BLR 13", name:"", grid:"F4 035" },
-  { id:"FGD 1", name:"", grid:"E4 050" },
-  { id:"FGD 2", name:"", grid:"F4 041" },
-  { id:"FGD 3", name:"", grid:"F4 042" },
-  { id:"FGD 4", name:"", grid:"F4 044" },
-  { id:"FGD 5", name:"", grid:"F4 045" },
-  { id:"MTBE", name:"", grid:"F4 030" },
-  { id:"METATHESIS", name:"", grid:"G4 011" },
-  { id:"EPR", name:"", grid:"G4 015" },
-  { id:"LDPE/EVA", name:"", grid:"G4 037" },
-  { id:"TPO", name:"", grid:"G3 097" },
-  { id:"PMMA", name:"", grid:"G3 078" },
-  { id:"MMA", name:"", grid:"F4 060" },
-  { id:"CT 4", name:"", grid:"E4 053" },
-  { id:"CAS", name:"", grid:"E4 054" },
-  { id:"ASU", name:"", grid:"E4 055" },
-  { id:"INCINERATOR", name:"", grid:"E4 061" },
-  { id:"Spent Caustic Incinerator", name:"", grid:"E4 072" },
-  { id:"WWT", name:"", grid:"E5 007" },
   { id:"PP1", name:"", grid:"C4 027" },
-  { id:"PP2", name:"", grid:"C4 027" },
-  { id:"PE1", name:"", grid:"C4 037" },
-  { id:"PE2", name:"", grid:"C4 047" },
-  { id:"C4", name:"", grid:"C4 056" },
-  { id:"HDPE", name:"", grid:"C4 056" },
-  { id:"MUWDC", name:"", grid:"C4 078" },
-  { id:"LCC PR 974", name:"", grid:"C4 013" },
+{ id:"PP2", name:"", grid:"C4 027" },
+{ id:"PE1", name:"", grid:"C4 037" },
+{ id:"PE2", name:"", grid:"C4 047" },
+{ id:"C4", name:"", grid:"C4 056" },
+{ id:"HDPE", name:"", grid:"C4 056" },
+{ id:"MUWDC", name:"", grid:"C4 078" },
+{ id:"SW1", name:"", grid:"C5 017" },
+{ id:"CDU", name:"", grid:"D3 075" },
+{ id:"KEROSENE", name:"", grid:"D3 066" },
+{ id:"NAPHTHA MEROX", name:"", grid:"D3 076" },
+{ id:"AMIN UNIT", name:"", grid:"D3 086" },
+{ id:"CFP", name:"", grid:"D3 067" },
+{ id:"SGA", name:"", grid:"D3 068" },
+{ id:"VDU", name:"", grid:"D3 079" },
+{ id:"SRU 1", name:"", grid:"D3 089" },
+{ id:"SRU 2", name:"", grid:"D3 099" },
+{ id:"SRU 3", name:"", grid:"D3 087" },
+{ id:"SRU", name:"", grid:"D3 097" },
+{ id:"DHS", name:"", grid:"D3 096" },
+{ id:"HPU", name:"", grid:"E3 062" },
+{ id:"VGO", name:"", grid:"E3 072" },
+{ id:"ARU 2", name:"", grid:"E3 081" },
+{ id:"ARU 3", name:"", grid:"E3 091" },
+{ id:"SWS", name:"", grid:"E3 082" },
+{ id:"C4 ISOM", name:"", grid:"E3 094" },
+{ id:"C4 ALKYLATION", name:"", grid:"E3 095" },
+
+{ id:"POX", name:"", grid:"E4 013" },
+{ id:"FG", name:"", grid:"E4 014" },
+{ id:"MEG", name:"", grid:"E4 022" },
+{ id:"CT 4", name:"", grid:"E4 053" },
+{ id:"CAS", name:"", grid:"E4 054" },
+{ id:"ASU", name:"", grid:"E4 055" },
+{ id:"INCINERATOR", name:"", grid:"E4 061" },
+{ id:"SPENT CAUSTIC INCINERATOR", name:"", grid:"E4 072" },
+{ id:"RAWEC", name:"", grid:"E4 040" },
+
+{ id:"STG 1", name:"", grid:"E4 030" },
+{ id:"STG 2", name:"", grid:"E4 030" },
+{ id:"STG 3", name:"", grid:"F4 021" },
+{ id:"STG 4", name:"", grid:"F4 021" },
+{ id:"STG 5", name:"", grid:"F4 022" },
+
+{ id:"BLR 1", name:"", grid:"E4 039" },
+{ id:"BLR 2", name:"", grid:"E4 039" },
+{ id:"BLR 3", name:"", grid:"E4 040" },
+{ id:"BLR 4", name:"", grid:"E4 040" },
+{ id:"BLR 5", name:"", grid:"F4 031" },
+{ id:"BLR 6", name:"", grid:"F4 031" },
+{ id:"BLR 7", name:"", grid:"F4 031" },
+{ id:"BLR 8", name:"", grid:"F4 032" },
+{ id:"BLR 9", name:"", grid:"F4 032" },
+
+{ id:"FGD 1", name:"", grid:"E4 050" },
+{ id:"FGD 2", name:"", grid:"F4 041" },
+{ id:"FGD 3", name:"", grid:"F4 042" },
+{ id:"HOFCC", name:"", grid:"E3 077" },
+{ id:"C4 ISOM", name:"", grid:"E3 094" },
+{ id:"ECR", name:"", grid:"E3 097" },
+
+{ id:"CCR 1", name:"", grid:"E4 015" },
+{ id:"STG 6", name:"", grid:"F4 024" },
+{ id:"STG 7", name:"", grid:"F4 025" },
+
+{ id:"BLR 10", name:"", grid:"F4 034" },
+{ id:"BLR 11", name:"", grid:"F4 034" },
+{ id:"BLR 12", name:"", grid:"F4 035" },
+{ id:"BLR 13", name:"", grid:"F4 035" },
+
+{ id:"FGD 4", name:"", grid:"F4 044" },
+{ id:"FGD 5", name:"", grid:"F4 045" },
+{ id:"NAPHTHA", name:"", grid:"F4 074" },
+{ id:"WWT II", name:"", grid:"F5 001" },
+
+{ id:"MMA", name:"", grid:"F4 060" },
+{ id:"AROMATICS", name:"", grid:"F4 088" },
+{ id:"UTILITY II", name:"", grid:"F5 007" },
+{ id:"LIQUID & SOLID INCINERATOR", name:"", grid:"F5 010" },
+{ id:"MTBE", name:"", grid:"F4 030" },
+{ id:"METATHESIS", name:"", grid:"G4 011" },
+{ id:"EPR", name:"", grid:"G4 015" },
+{ id:"LDPE/EVA", name:"", grid:"G4 037" },
+{ id:"PHENOL", name:"", grid:"G4 072" },
+{ id:"CUMENE", name:"", grid:"G4 083" },
+{ id:"PMMA", name:"", grid:"G3 078" },
+{ id:"TPO", name:"", grid:"G3 097" },
+{ id:"NYLON 6", name:"", grid:"G4 099" },
+
+{ id:"LPG", name:"", grid:"E2 035" },
+
+{ id:"RACK 2", name:"", grid:"E2 025" },
+{ id:"RACK 1", name:"", grid:"E2 026" },
+{ id:"NORTH TANK FARM", name:"", grid:"B4 078" },
+
+{ id:"SULPHUR FORMING UNIT", name:"", grid:"A4 086" },
+
+{ id:"TANK FARM", name:"", grid:"D2 090" },
+{ id:"TRITON WATER", name:"", grid:"C1 046" },
+
   // ===== RPTP Companies =====
   { id:"ADFLEX", name:"", grid:"B0 079", category:"RPTP" },
   { id:"AJMC", name:"", grid:"B1 008", category:"RPTP" },
