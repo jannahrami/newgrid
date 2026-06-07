@@ -1592,6 +1592,10 @@ const buildings = [
   { id:"PR950", name:"CCR 2", grid:"C4 025" },
   { id:"PR974", name:"LOGISTIC CONTROL CENTER (LCC) BUILDING", grid:"C4 013" },
   { id:"WR550", name:"SECURITY MAIN GATE", grid:"C1 029" },
+  { id:"gate", name:"gate 7", grid:"C1 003" },
+  { id:"gate", name:"gate 5", grid:"G3 029" },
+  { id:"WR565A", name:"gate 6", grid:"C4 003" },
+  { id:"WR565", name:"gate 4", grid:"C3 089" },
   { id:"WR550A", name:"SECURITY BUILDING", grid:"C1 028" },
   { id:"WR551A", name:"ITC BUILDING SECURITY GATE", grid:"C1 069" },
   { id:"WR551C", name:"POWER PLANT ACCESS SECURITY GATE", grid:"C3 023" },
@@ -1599,7 +1603,7 @@ const buildings = [
   { id:"WR553", name:"DINING HALL", grid:"C3 066" },
   { id:"WR554", name:"MOSQUE", grid:"C3 066" },
   { id:"WR555", name:"SUPPORT SERVICES", grid:"C3 066" },
-  { id:"WR556", name:"SECURITY HEADQUARTERS", grid:"C3 077" },
+  { id:"WR556", name:"office servies", grid:"C3 077" },
   { id:"WR557", name:"FUEL & SERVICE STATIONS", grid:"C3 078" },
   { id:"WR561", name:"HEAVY DUTY VEHICLE WORKSHOP", grid:"C3 086" },
   { id:"WR562", name:"AUTOMOTIVE VEHICLE SERVICE & REPAIR", grid:"C3 086" },
@@ -2258,7 +2262,7 @@ function updateSuggestions(){
  suggestionTimer=setTimeout(()=>{
  const q=(gridInput.value||"").trim().toUpperCase();
  suggestionList.innerHTML="";
- if(q.length<3)return;
+ if(q.length<1)return;
  const seen=new Set();
  buildings.forEach(b=>{
    const id=String(b.id||"");
@@ -2267,7 +2271,7 @@ function updateSuggestions(){
       if(!seen.has(id)){
         seen.add(id);
         const o=document.createElement("option");
-        o.value=id;
+        o.value = `${id} - ${name} (${b.grid || ""})`;
         suggestionList.appendChild(o);
       }
    }
