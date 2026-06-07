@@ -1584,6 +1584,7 @@ const buildings = [
   { id:"PR295", name:"CEMS DEVICE ROOM # 2", grid:"F4 041" },
   { id:"PR296", name:"CEMS DEVICE ROOM # 3", grid:"F4 042" },
   { id:"PR297", name:"GATE HOUSE", grid:"E4 070" },
+  { id:"PR209", name:"SECURITY ID OFFICE", grid:"C0 078" },
   { id:"PR350", name:"RAWEC - DS", grid:"D5 007" },
   { id:"PR351", name:"RAWEC - DS", grid:"D5 007" },
   { id:"PR352", name:"RAWEC - DS", grid:"D5 006" },
@@ -1592,11 +1593,11 @@ const buildings = [
   { id:"PR950", name:"CCR 2", grid:"C4 025" },
   { id:"PR974", name:"LOGISTIC CONTROL CENTER (LCC) BUILDING", grid:"C4 013" },
   { id:"WR550", name:"SECURITY MAIN GATE", grid:"C1 029" },
-  { id:"gate", name:"gate 7", grid:"C1 003" },
-  { id:"gate", name:"gate 5", grid:"G3 029" },
-  { id:"WR565A", name:"gate 6", grid:"C4 003" },
-  { id:"WR565", name:"gate 4", grid:"C3 089" },
-  { id:"WR550A", name:"SECURITY BUILDING", grid:"C1 028" },
+  { id:"gate", name:"SECURITY GATE 7", grid:"C1 003" },
+  { id:"gate", name:"SECURITY GATE 5", grid:"G3 029" },
+  { id:"WR565A", name:"SECURITY GATE 6", grid:"C4 003" },
+  { id:"WR565", name:"SECURITY GATE 4", grid:"C3 089" },
+  { id:"WR550A", name:"SECURITY ADMIN BUILDING", grid:"C1 028" },
   { id:"WR551A", name:"ITC BUILDING SECURITY GATE", grid:"C1 069" },
   { id:"WR551C", name:"POWER PLANT ACCESS SECURITY GATE", grid:"C3 023" },
   { id:"WR552", name:"ENGINEERING BUILDING", grid:"C3 067" },
@@ -2555,9 +2556,10 @@ function findBuilding(value) {
   return null;
 }
 function resolveInput(value) {
-  const building = findBuilding(value);
+  const cleanValue = String(value || "").split(" - ")[0].trim();
+const building = findBuilding(cleanValue);
   if (building) return { gridValue: building.grid, building };
-  return { gridValue: value, building: null };
+  return { gridValue: cleanValue, building: null };
 }
 function parseInput(value) {
   value = String(value || "").trim().toUpperCase().replace(/-/g, " ");
