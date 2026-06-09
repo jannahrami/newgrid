@@ -1574,10 +1574,22 @@ body.buildingSheetOpen .categoryBar select{
 </style>
 
 
-<style id="DESKTOP_BUILDING_PANEL_LOWER">
-@media (min-width:769px){
+<style id="DESKTOP_BUILDING_INDEX_VISIBLE_FIX">
+/* Desktop only: show Building Index lower and fully visible */
+@media (min-width:769px) and (hover:hover) and (pointer:fine){
   body.buildingSheetOpen .categoryBar{
-    top: 190px !important;
+    position:fixed !important;
+    top:260px !important;
+    bottom:auto !important;
+    left:50% !important;
+    right:auto !important;
+    width:560px !important;
+    max-height:42vh !important;
+    transform:translateX(-50%) !important;
+    display:grid !important;
+    grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+    overflow-y:auto !important;
+    z-index:999999 !important;
   }
 }
 </style>
