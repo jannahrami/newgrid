@@ -1388,6 +1388,191 @@ body::after{
   justify-content:center !important;
 }
 </style>
+
+<style id="COLOR_ONLY_OVERRIDE_V4_9">
+/* COLOR ONLY — no size changes */
+
+/* keep duplicate rows hidden */
+#status,
+#resultCard,
+#liveRecentSearches{
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  overflow:hidden !important;
+  padding:0 !important;
+  margin:0 !important;
+}
+
+/* General button glass look - color only */
+button,
+.topbar button{
+  background:linear-gradient(180deg,#11231f 0%,#06100e 100%) !important;
+  color:#ffffff !important;
+  border-color:rgba(78,220,112,.52) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 0 10px rgba(57,220,97,.10) !important;
+}
+
+/* Reset / Hide / Clear = dark gray glass */
+#resetZoomBtn,
+#hideHeaderBtn,
+#clearBtn{
+  background:linear-gradient(180deg,#252b2b 0%,#080d0d 100%) !important;
+  color:#ffffff !important;
+  border-color:rgba(255,255,255,.22) !important;
+}
+
+/* Search = main green */
+#searchBtn{
+  background:linear-gradient(180deg,#67e17d 0%,#0fa34a 100%) !important;
+  color:#ffffff !important;
+  border-color:rgba(122,255,150,.85) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.24),
+    0 0 16px rgba(39,220,91,.25) !important;
+}
+
+/* GTS / Share / Live / Find SIP = green dark glass */
+#gtsBtn,
+#shareBtn,
+#myLocationBtn,
+#emergencyBtn{
+  background:linear-gradient(180deg,#143a2a 0%,#06130f 100%) !important;
+  color:#ffffff !important;
+  border-color:rgba(78,220,112,.60) !important;
+}
+
+/* Force Find SIP green */
+#emergencyBtn{
+  background:linear-gradient(180deg,#143a2a 0%,#06130f 100%) !important;
+  color:#ffffff !important;
+  border-color:rgba(78,220,112,.72) !important;
+}
+
+/* SCC only red */
+#sosBtn{
+  background:linear-gradient(180deg,#78191f 0%,#250609 100%) !important;
+  color:#ffffff !important;
+  border-color:rgba(255,58,58,.75) !important;
+  box-shadow:0 0 14px rgba(255,0,0,.20) !important;
+}
+
+/* Buildings dark glass, no yellow */
+#toggleCategoriesBtn{
+  background:linear-gradient(180deg,#182421 0%,#070d0c 100%) !important;
+  color:#ffffff !important;
+  border-color:rgba(78,220,112,.45) !important;
+}
+
+/* Input color only */
+#gridInput{
+  background:#050b0b !important;
+  color:#ffffff !important;
+  border-color:rgba(255,255,255,.24) !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<style id="BUILDING_BOTTOM_SHEET_V5_3">
+/* Extra compact Building Index Bottom Sheet V5.3 */
+
+.categoryBar{
+  display:none !important;
+}
+
+body.buildingSheetOpen .categoryBar{
+  position:fixed !important;
+  top:auto !important;
+  left:8px !important;
+  right:8px !important;
+  bottom:calc(8px + env(safe-area-inset-bottom)) !important;
+  z-index:999999 !important;
+
+  display:grid !important;
+  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+  gap:6px !important;
+  align-content:start !important;
+
+  width:auto !important;
+  max-width:none !important;
+  height:auto !important;
+  max-height:34vh !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+
+  padding:32px 8px 8px !important;
+  box-sizing:border-box !important;
+
+  background:linear-gradient(180deg,rgba(4,28,22,.98),rgba(2,9,8,.99)) !important;
+  border:1px solid rgba(82,217,108,.55) !important;
+  border-radius:16px !important;
+  box-shadow:0 -8px 22px rgba(0,0,0,.65), 0 0 16px rgba(82,217,108,.12) !important;
+  transform:none !important;
+}
+
+body.buildingSheetOpen .categoryBar::before{
+  content:"📚 Building Index";
+  position:absolute !important;
+  left:10px !important;
+  top:8px !important;
+  color:#fff !important;
+  font-size:14px !important;
+  font-weight:900 !important;
+}
+
+body.buildingSheetOpen .categoryBar::after{
+  content:"";
+}
+
+body.buildingSheetOpen .categoryBar select{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:none !important;
+  height:32px !important;
+  min-height:32px !important;
+  padding:0 6px !important;
+  border-radius:9px !important;
+
+  background:linear-gradient(180deg,#10251f,#06100e) !important;
+  color:#fff !important;
+  border:1px solid rgba(82,217,108,.48) !important;
+  font-size:11px !important;
+  font-weight:800 !important;
+}
+
+/* desktop compact */
+@media (min-width:769px){
+  body.buildingSheetOpen .categoryBar{
+    left:50% !important;
+    right:auto !important;
+    bottom:22px !important;
+    width:560px !important;
+    max-height:42vh !important;
+    transform:translateX(-50%) !important;
+    grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+  }
+}
+
+/* very small screens: 3 columns but smaller */
+@media (max-width:370px){
+  body.buildingSheetOpen .categoryBar{
+    grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+    max-height:38vh !important;
+  }
+}
+</style>
+
 </head>
 <body class="locked">
 <div id="passwordLockOverlay" role="dialog" aria-modal="true">
@@ -3914,6 +4099,74 @@ let lastTouchEnd = 0;
         if(e.key === 'Enter'){ e.preventDefault(); runSearchFromButton(); }
       });
     }
+  });
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script id="BUILDING_BOTTOM_SHEET_JS_V5_3">
+(function(){
+  function ready(fn){
+    if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+
+  ready(function(){
+    const btn = document.getElementById("toggleCategoriesBtn");
+    const bar = document.querySelector(".categoryBar");
+    if(!btn || !bar) return;
+
+    btn.textContent = "📚 Building Index";
+
+    function openSheet(){
+      document.body.classList.add("buildingSheetOpen");
+      bar.classList.remove("collapsed");
+      btn.textContent = "📚 Close";
+      setTimeout(function(){ bar.scrollTop = 0; }, 50);
+    }
+
+    function closeSheet(){
+      document.body.classList.remove("buildingSheetOpen");
+      bar.classList.add("collapsed");
+      btn.textContent = "📚 Building Index";
+    }
+
+    function toggleSheet(e){
+      if(e){
+        e.preventDefault();
+        e.stopPropagation();
+        if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+      }
+      if(document.body.classList.contains("buildingSheetOpen")) closeSheet();
+      else openSheet();
+      return false;
+    }
+
+    btn.addEventListener("click", toggleSheet, true);
+    btn.onclick = toggleSheet;
+
+    bar.querySelectorAll("select").forEach(function(sel){
+      sel.addEventListener("change", function(){
+        if(this.value) setTimeout(closeSheet, 220);
+      }, true);
+    });
+
+    document.addEventListener("click", function(e){
+      if(!document.body.classList.contains("buildingSheetOpen")) return;
+      if(bar.contains(e.target) || btn.contains(e.target)) return;
+      closeSheet();
+    }, true);
+
+    closeSheet();
   });
 })();
 </script>
