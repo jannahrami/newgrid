@@ -899,6 +899,34 @@ body.locked #appRoot{ filter:blur(4px); pointer-events:none; user-select:none; }
   justify-content:center !important;
 }
 
+
+
+/* ===== CLEAN_UI_HIDE_DUPLICATE_RESULT_BARS_V4.4 ===== */
+#routeInfo,
+#resultCard,
+#liveRecentSearches {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+}
+
+
+/* FORCE_HIDE_LIVE_STATUS_V1 */
+#status{
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  overflow:hidden !important;
+  padding:0 !important;
+  margin:0 !important;
+}
+
 </style>
 
 <style id="PETRO_RABIGH_UI_THEME_V2_ONLY">
@@ -2262,7 +2290,7 @@ function updateSuggestions(){
  suggestionTimer=setTimeout(()=>{
  const q=(gridInput.value||"").trim().toUpperCase();
  suggestionList.innerHTML="";
- if(q.length<1)return;
+ if(q.length<4)return;
  const seen=new Set();
  buildings.forEach(b=>{
    const id=String(b.id||"");
@@ -2276,7 +2304,7 @@ function updateSuggestions(){
       }
    }
  });
- },150);
+ },300);
 }
 gridInput.addEventListener("input",updateSuggestions);
 
@@ -2583,9 +2611,11 @@ function shareUrlFor(building, gridLabel) {
 }
 function showResult(building) {
   const card = document.getElementById("resultCard");
-  if (!building) { card.style.display = "none"; card.innerHTML = ""; return; }
-  card.style.display = "block";
-  card.innerHTML = `<b>${formatBuildingId(building.id)}</b> — ${building.name} <span class="gridText">| Grid: ${building.grid}</span>`;
+  if (card) {
+    card.style.setProperty("display", "none", "important");
+    card.innerHTML = "";
+  }
+  return;
 }
 function highlight(value) {
   const status = document.getElementById("status");
@@ -3752,7 +3782,9 @@ document.addEventListener('DOMContentLoaded', function(){
   function renderRecent(){
     const el = document.getElementById("liveRecentSearches");
     if(!el) return;
-    el.textContent = recent.length ? ("Recent: " + recent.join(" | ")) : "Recent: --";
+    el.style.setProperty("display", "none", "important");
+    el.textContent = "";
+    return;
   }
 
   const oldHighlightForRecent = window.highlight || highlight;
