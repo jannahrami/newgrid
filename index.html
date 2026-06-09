@@ -1484,20 +1484,13 @@ button,
 
 
 
-
-
-
-<style id="BUILDING_BOTTOM_SHEET_V5_4">
-/* Building Index Smart Sheet V5.4
-   Mobile: bottom sheet
-   Desktop: popup under Buildings button
-*/
+<style id="BUILDING_BOTTOM_SHEET_V5_3">
+/* Extra compact Building Index Bottom Sheet V5.3 */
 
 .categoryBar{
   display:none !important;
 }
 
-/* MOBILE / TOUCH: bottom sheet */
 body.buildingSheetOpen .categoryBar{
   position:fixed !important;
   top:auto !important;
@@ -1513,6 +1506,7 @@ body.buildingSheetOpen .categoryBar{
 
   width:auto !important;
   max-width:none !important;
+  height:auto !important;
   max-height:34vh !important;
   overflow-y:auto !important;
   overflow-x:hidden !important;
@@ -1557,44 +1551,33 @@ body.buildingSheetOpen .categoryBar select{
   font-weight:800 !important;
 }
 
-/* DESKTOP: dropdown popup under Buildings button */
-@media (min-width:769px) and (hover:hover) and (pointer:fine){
+/* desktop compact */
+@media (min-width:769px){
   body.buildingSheetOpen .categoryBar{
-    left:var(--buildingSheetLeft, 50%) !important;
+    left:50% !important;
     right:auto !important;
-    top:var(--buildingSheetTop, 120px) !important;
-    bottom:auto !important;
-
-    width:430px !important;
-    max-width:430px !important;
-    max-height:260px !important;
+    bottom:22px !important;
+    width:560px !important;
+    max-height:42vh !important;
     transform:translateX(-50%) !important;
-
     grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
-    gap:7px !important;
-    padding:34px 10px 10px !important;
-    border-radius:14px !important;
-    box-shadow:0 10px 26px rgba(0,0,0,.60), 0 0 18px rgba(82,217,108,.16) !important;
-  }
-
-  body.buildingSheetOpen .categoryBar::before{
-    font-size:13px !important;
-    top:8px !important;
-  }
-
-  body.buildingSheetOpen .categoryBar select{
-    height:30px !important;
-    min-height:30px !important;
-    font-size:10.5px !important;
-    border-radius:8px !important;
   }
 }
 
-/* tiny phones */
+/* very small screens: 3 columns but smaller */
 @media (max-width:370px){
   body.buildingSheetOpen .categoryBar{
     grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
     max-height:38vh !important;
+  }
+}
+</style>
+
+
+<style id="DESKTOP_BUILDING_PANEL_LOWER">
+@media (min-width:769px){
+  body.buildingSheetOpen .categoryBar{
+    top: 190px !important;
   }
 }
 </style>
@@ -4139,10 +4122,7 @@ let lastTouchEnd = 0;
 
 
 
-
-
-
-<script id="BUILDING_BOTTOM_SHEET_JS_V5_4">
+<script id="BUILDING_BOTTOM_SHEET_JS_V5_3">
 (function(){
   function ready(fn){
     if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
@@ -4156,27 +4136,11 @@ let lastTouchEnd = 0;
 
     btn.textContent = "📚 Building Index";
 
-    function positionDesktopPopup(){
-      const isDesktop = window.matchMedia("(min-width:769px) and (hover:hover) and (pointer:fine)").matches;
-      if(!isDesktop) return;
-
-      const r = btn.getBoundingClientRect();
-      const left = r.left + (r.width / 2);
-      const top = r.bottom + 8;
-
-      document.documentElement.style.setProperty("--buildingSheetLeft", left + "px");
-      document.documentElement.style.setProperty("--buildingSheetTop", top + "px");
-    }
-
     function openSheet(){
-      positionDesktopPopup();
       document.body.classList.add("buildingSheetOpen");
       bar.classList.remove("collapsed");
       btn.textContent = "📚 Close";
-      setTimeout(function(){ 
-        bar.scrollTop = 0; 
-        positionDesktopPopup();
-      }, 50);
+      setTimeout(function(){ bar.scrollTop = 0; }, 50);
     }
 
     function closeSheet(){
@@ -4209,14 +4173,6 @@ let lastTouchEnd = 0;
       if(!document.body.classList.contains("buildingSheetOpen")) return;
       if(bar.contains(e.target) || btn.contains(e.target)) return;
       closeSheet();
-    }, true);
-
-    window.addEventListener("resize", function(){
-      if(document.body.classList.contains("buildingSheetOpen")) positionDesktopPopup();
-    });
-
-    window.addEventListener("scroll", function(){
-      if(document.body.classList.contains("buildingSheetOpen")) positionDesktopPopup();
     }, true);
 
     closeSheet();
