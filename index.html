@@ -1484,106 +1484,116 @@ button,
 
 
 
-<style id="BUILDING_BOTTOM_SHEET_V5_3">
-/* Extra compact Building Index Bottom Sheet V5.3 */
+<style id="BUILDING_BOTTOM_SHEET_V5_4_FIXED">
+/* V5.4 Desktop Fix: keep map coordinates untouched, improve Building Index only */
+.categoryBar{ display:none !important; }
 
-.categoryBar{
-  display:none !important;
+body.buildingSheetOpen::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.18);
+  z-index:999998;
+  pointer-events:none;
 }
 
 body.buildingSheetOpen .categoryBar{
   position:fixed !important;
+  left:50% !important;
+  right:auto !important;
   top:auto !important;
-  left:8px !important;
-  right:8px !important;
-  bottom:calc(8px + env(safe-area-inset-bottom)) !important;
+  bottom:26px !important;
+  transform:translateX(-50%) !important;
   z-index:999999 !important;
 
   display:grid !important;
-  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
-  gap:6px !important;
+  grid-template-columns:repeat(7, minmax(82px, 1fr)) !important;
+  gap:8px !important;
   align-content:start !important;
 
-  width:auto !important;
-  max-width:none !important;
+  width:min(880px, calc(100vw - 40px)) !important;
+  max-width:880px !important;
   height:auto !important;
-  max-height:34vh !important;
+  max-height:210px !important;
   overflow-y:auto !important;
   overflow-x:hidden !important;
 
-  padding:32px 8px 8px !important;
+  padding:42px 12px 12px !important;
   box-sizing:border-box !important;
 
   background:linear-gradient(180deg,rgba(4,28,22,.98),rgba(2,9,8,.99)) !important;
-  border:1px solid rgba(82,217,108,.55) !important;
-  border-radius:16px !important;
-  box-shadow:0 -8px 22px rgba(0,0,0,.65), 0 0 16px rgba(82,217,108,.12) !important;
-  transform:none !important;
+  border:1px solid rgba(82,217,108,.70) !important;
+  border-radius:18px !important;
+  box-shadow:0 12px 34px rgba(0,0,0,.72), 0 0 22px rgba(82,217,108,.18) !important;
+  backdrop-filter:blur(10px) !important;
 }
 
 body.buildingSheetOpen .categoryBar::before{
   content:"📚 Building Index";
   position:absolute !important;
-  left:10px !important;
-  top:8px !important;
+  left:16px !important;
+  top:11px !important;
   color:#fff !important;
-  font-size:14px !important;
+  font-size:15px !important;
   font-weight:900 !important;
+  letter-spacing:.2px !important;
 }
 
 body.buildingSheetOpen .categoryBar::after{
-  content:"";
+  content:"Select category";
+  position:absolute !important;
+  right:16px !important;
+  top:13px !important;
+  color:rgba(255,255,255,.65) !important;
+  font-size:12px !important;
+  font-weight:800 !important;
 }
 
 body.buildingSheetOpen .categoryBar select{
   width:100% !important;
   min-width:0 !important;
   max-width:none !important;
-  height:32px !important;
-  min-height:32px !important;
-  padding:0 6px !important;
-  border-radius:9px !important;
+  height:34px !important;
+  min-height:34px !important;
+  padding:0 9px !important;
+  border-radius:10px !important;
 
   background:linear-gradient(180deg,#10251f,#06100e) !important;
   color:#fff !important;
-  border:1px solid rgba(82,217,108,.48) !important;
-  font-size:11px !important;
-  font-weight:800 !important;
+  border:1px solid rgba(82,217,108,.55) !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  outline:none !important;
 }
 
-/* desktop compact */
-@media (min-width:769px){
+@media (max-width:768px){
   body.buildingSheetOpen .categoryBar{
-    left:50% !important;
-    right:auto !important;
-    bottom:22px !important;
-    width:560px !important;
-    max-height:42vh !important;
-    transform:translateX(-50%) !important;
+    left:8px !important;
+    right:8px !important;
+    bottom:calc(8px + env(safe-area-inset-bottom)) !important;
+    transform:none !important;
+    width:auto !important;
+    max-width:none !important;
+    max-height:34vh !important;
     grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+    gap:6px !important;
+    padding:32px 8px 8px !important;
   }
-}
-
-/* very small screens: 3 columns but smaller */
-@media (max-width:370px){
-  body.buildingSheetOpen .categoryBar{
-    grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
-    max-height:38vh !important;
-  }
+  body.buildingSheetOpen .categoryBar::before{font-size:14px !important; left:10px !important; top:8px !important;}
+  body.buildingSheetOpen .categoryBar::after{content:"";}
+  body.buildingSheetOpen .categoryBar select{height:32px !important; min-height:32px !important; font-size:11px !important;}
 }
 </style>
 
 
-<style id="desktop-premium-patch">
+<style id="DESKTOP_SAFE_UI_V5_4">
 @media (min-width:1200px){
-.topbar{padding:6px 10px !important; gap:6px !important;}
-input{min-width:340px !important; font-size:16px !important; padding:8px 10px !important;}
-button{padding:8px 12px !important; font-size:14px !important;}
-body{overflow:hidden;}
-#map, .map-container, canvas, img[alt*="map"]{max-height:calc(100vh - 90px)!important;}
+  .topbar{padding-top:8px !important; padding-bottom:8px !important; gap:7px !important;}
+  .topbar button{padding:8px 12px !important; font-size:13px !important;}
+  #gridInput{min-width:260px !important; font-size:15px !important; padding:8px 10px !important;}
+  #zoomLevel{padding:7px 9px !important; font-size:13px !important;}
 }
 </style>
-
 </head>
 <body class="locked">
 <div id="passwordLockOverlay" role="dialog" aria-modal="true">
