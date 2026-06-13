@@ -1484,116 +1484,95 @@ button,
 
 
 
-<style id="BUILDING_BOTTOM_SHEET_V5_4_FIXED">
-/* V5.4 Desktop Fix: keep map coordinates untouched, improve Building Index only */
-.categoryBar{ display:none !important; }
+<style id="BUILDING_BOTTOM_SHEET_V5_3">
+/* Extra compact Building Index Bottom Sheet V5.3 */
 
-body.buildingSheetOpen::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.18);
-  z-index:999998;
-  pointer-events:none;
+.categoryBar{
+  display:none !important;
 }
 
 body.buildingSheetOpen .categoryBar{
   position:fixed !important;
-  left:50% !important;
-  right:auto !important;
   top:auto !important;
-  bottom:26px !important;
-  transform:translateX(-50%) !important;
+  left:8px !important;
+  right:8px !important;
+  bottom:calc(8px + env(safe-area-inset-bottom)) !important;
   z-index:999999 !important;
 
   display:grid !important;
-  grid-template-columns:repeat(7, minmax(82px, 1fr)) !important;
-  gap:8px !important;
+  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+  gap:6px !important;
   align-content:start !important;
 
-  width:min(880px, calc(100vw - 40px)) !important;
-  max-width:880px !important;
+  width:auto !important;
+  max-width:none !important;
   height:auto !important;
-  max-height:210px !important;
+  max-height:34vh !important;
   overflow-y:auto !important;
   overflow-x:hidden !important;
 
-  padding:42px 12px 12px !important;
+  padding:32px 8px 8px !important;
   box-sizing:border-box !important;
 
   background:linear-gradient(180deg,rgba(4,28,22,.98),rgba(2,9,8,.99)) !important;
-  border:1px solid rgba(82,217,108,.70) !important;
-  border-radius:18px !important;
-  box-shadow:0 12px 34px rgba(0,0,0,.72), 0 0 22px rgba(82,217,108,.18) !important;
-  backdrop-filter:blur(10px) !important;
+  border:1px solid rgba(82,217,108,.55) !important;
+  border-radius:16px !important;
+  box-shadow:0 -8px 22px rgba(0,0,0,.65), 0 0 16px rgba(82,217,108,.12) !important;
+  transform:none !important;
 }
 
 body.buildingSheetOpen .categoryBar::before{
   content:"📚 Building Index";
   position:absolute !important;
-  left:16px !important;
-  top:11px !important;
+  left:10px !important;
+  top:8px !important;
   color:#fff !important;
-  font-size:15px !important;
+  font-size:14px !important;
   font-weight:900 !important;
-  letter-spacing:.2px !important;
 }
 
 body.buildingSheetOpen .categoryBar::after{
-  content:"Select category";
-  position:absolute !important;
-  right:16px !important;
-  top:13px !important;
-  color:rgba(255,255,255,.65) !important;
-  font-size:12px !important;
-  font-weight:800 !important;
+  content:"";
 }
 
 body.buildingSheetOpen .categoryBar select{
   width:100% !important;
   min-width:0 !important;
   max-width:none !important;
-  height:34px !important;
-  min-height:34px !important;
-  padding:0 9px !important;
-  border-radius:10px !important;
+  height:32px !important;
+  min-height:32px !important;
+  padding:0 6px !important;
+  border-radius:9px !important;
 
   background:linear-gradient(180deg,#10251f,#06100e) !important;
   color:#fff !important;
-  border:1px solid rgba(82,217,108,.55) !important;
-  font-size:12px !important;
-  font-weight:900 !important;
-  outline:none !important;
+  border:1px solid rgba(82,217,108,.48) !important;
+  font-size:11px !important;
+  font-weight:800 !important;
 }
 
-@media (max-width:768px){
+/* desktop compact */
+@media (min-width:769px){
   body.buildingSheetOpen .categoryBar{
-    left:8px !important;
-    right:8px !important;
-    bottom:calc(8px + env(safe-area-inset-bottom)) !important;
-    transform:none !important;
-    width:auto !important;
-    max-width:none !important;
-    max-height:34vh !important;
+    left:50% !important;
+    right:auto !important;
+    bottom:22px !important;
+    width:560px !important;
+    max-height:42vh !important;
+    transform:translateX(-50%) !important;
     grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
-    gap:6px !important;
-    padding:32px 8px 8px !important;
   }
-  body.buildingSheetOpen .categoryBar::before{font-size:14px !important; left:10px !important; top:8px !important;}
-  body.buildingSheetOpen .categoryBar::after{content:"";}
-  body.buildingSheetOpen .categoryBar select{height:32px !important; min-height:32px !important; font-size:11px !important;}
+}
+
+/* very small screens: 3 columns but smaller */
+@media (max-width:370px){
+  body.buildingSheetOpen .categoryBar{
+    grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+    max-height:38vh !important;
+  }
 }
 </style>
 
-
-<style id="DESKTOP_SAFE_UI_V5_4">
-@media (min-width:1200px){
-  .topbar{padding-top:8px !important; padding-bottom:8px !important; gap:7px !important;}
-  .topbar button{padding:8px 12px !important; font-size:13px !important;}
-  #gridInput{min-width:260px !important; font-size:15px !important; padding:8px 10px !important;}
-  #zoomLevel{padding:7px 9px !important; font-size:13px !important;}
-}
-</style>
 </head>
 <body class="locked">
 <div id="passwordLockOverlay" role="dialog" aria-modal="true">
@@ -1651,7 +1630,7 @@ body.buildingSheetOpen .categoryBar select{
     </div>
     <button id="shareBtn">💬Share Map</button>
     <button id="myLocationBtn">📍 My Location</button>
-    <button id="emergencyBtn">🏠Find SIP</button>
+    <button id="emergencyBtn">🏠 SIP</button>
 <a href="tel:0124251555"><button id="sosBtn">📲SCC</button></a>
   
     <button id="toggleCategoriesBtn" type="button">🏢 Buildings</button>
@@ -1781,12 +1760,13 @@ const buildings = [
   { id:"PR206", name:"PRODUCT DEVELOPMENT CENTER", grid:"C3 025" },
   { id:"PR207", name:"", grid:"C3 025" },
   { id:"PR208", name:"", grid:"C3 045" },
+  { id:"PR209", name:"SECURITY ADMIN BUILDING", grid:"C0 078" },
   { id:"PR258", name:"Operations Building (OB 1)", grid:"D3 090" },
   { id:"PR210", name:"", grid:"C3 037" },
   { id:"PR211", name:"", grid:"C3 036" },
   { id:"PR220", name:"", grid:"C3 026" },
-  { id:"PR260", name:"", grid:"C4 075" },
-  { id:"PR261", name:"", grid:"E4 065" },
+  { id:"PR260", name:"", grid:"C4 086" },
+  { id:"PR261", name:"", grid:"E4 066" },
   { id:"PR263", name:"Monomer-I Maintenance Bldg.", grid:"F4 003" },
   { id:"PR265", name:"Monomer-II Maintenance Bldg.", grid:"F4 068" },
   { id:"PR266", name:"", grid:"F3 083" },
@@ -1804,7 +1784,6 @@ const buildings = [
   { id:"PR785 WH", name:"", grid:"G4 009" },
   { id:"PR786 WH", name:"", grid:"G4 027" },
   { id:"PR787 WH", name:"", grid:"G3 098" },
-  { id:"PR81", name:"", grid:"E4 005" },
   { id:"PR952", name:"", grid:"C4 035" },
   { id:"PR956", name:"POLYMER LAB", grid:"C4 034" },
   { id:"RP752", name:"", grid:"C1 006" },
@@ -1831,7 +1810,7 @@ const buildings = [
   { id:"gate", name:"SECURITY GATE 5", grid:"G3 029" },
   { id:"WR565A", name:"SECURITY GATE 6", grid:"C4 003" },
   { id:"WR565", name:"SECURITY GATE 4", grid:"C3 089" },
-  { id:"WR550A", name:"SECURITY BUILDING", grid:"C1 028" },
+  { id:"WR550A", name:"SECURITY SHIFT CHIEF", grid:"C1 028" },
   { id:"WR551C", name:"POWER PLANT ACCESS SECURITY GATE", grid:"C3 023" },
   { id:"WR552", name:"ENGINEERING BUILDING", grid:"C3 067" },
   { id:"WR553", name:"DINING HALL", grid:"C3 066" },
@@ -2291,18 +2270,19 @@ const buildings = [
 { id:"SFL 14", name:"SFL 14", grid:"B4 025" },
 { id:"SFL 15", name:"SFL 15", grid:"A3 020" },
 { id:"SFL 16", name:"SFL 16", grid:"A4 059" },
-{ id:"EG 01", name:"EG 01", grid:"C1 043" },
+{ id:"EG 01", name:"EG 01", grid:"C1 043", keyHolder:"SVP 06" },
 { id:"EG 02", name:"EG 02", grid:"A2 076" },
 { id:"EG 03", name:"EG 03", grid:"A3 007" },
-{ id:"EG 05", name:"EG 05", grid:"C4 004" },
-{ id:"EG 06", name:"EG 06", grid:"B4 074" },
-{ id:"EG 07", name:"EG 07", grid:"A5 009" },
-{ id:"EG 08", name:"EG 08", grid:"B5 002" },
-{ id:"EG 09", name:"EG 09", grid:"C4 064" },
-{ id:"EG 10", name:"EG 10", grid:"C4 009" },
-{ id:"EG 12", name:"EG 12", grid:"E2 021" },
-{ id:"EG 13", name:"EG 13", grid:"E2 027" },
-{ id:"EG 14", name:"EG 14", grid:"G3 040" },
+{ id:"EG 05", name:"EG 05", grid:"C4 004", keyHolder:"SVP 09 & SSC Office" },
+{ id:"EG 06", name:"EG 06", grid:"B4 074", keyHolder:"SVP 09 & SSC Office" },
+{ id:"EG 07", name:"EG 07", grid:"A5 009", keyHolder:"SVP 09 & SSC Office" },
+{ id:"EG 08", name:"EG 08", grid:"B5 002", keyHolder:"SVP 013" },
+{ id:"EG 09", name:"EG 09", grid:"C4 064", keyHolder:"SVP 09 & SSCA 02" },
+{ id:"EG 10", name:"EG 10", grid:"C4 009", keyHolder:"SVP 013" },
+{ id:"EG 11", name:"EG 11", grid:"C2 020" },
+{ id:"EG 12", name:"EG 12", grid:"E2 021", keyHolder:"Under Sec Aramco" },
+{ id:"EG 13", name:"EG 13", grid:"E2 027", keyHolder:"Under Sec Aramco" },
+{ id:"EG 14", name:"EG 14", grid:"G3 040", keyHolder:"SVP 010" },
 { id:"EG 17", name:"EG 17", grid:"D1 018" },
 { id:"EG 18", name:"EG 18", grid:"C1 029" },
 { id:"RSFIP 1", name:"RSFIP 1", grid:"E2 027" },
@@ -2845,7 +2825,10 @@ function highlight(value) {
     box.style.height = (smallH * s) + "px";
     box.style.display = "block";
     const gridLabel = col + row + " " + String(sub).padStart(3, "0");
-    if (resolved.building) status.textContent = formatBuildingId(resolved.building.id) + " | " + resolved.building.name + " | " + gridLabel;
+    if (resolved.building) {
+      const keyHolderText = resolved.building.keyHolder ? " | 🔑 Key Holder: " + resolved.building.keyHolder : "";
+      status.textContent = formatBuildingId(resolved.building.id) + " | " + resolved.building.name + " | " + gridLabel + keyHolderText;
+    }
     else status.textContent = "تم تحديد: " + gridLabel;
     showResult(resolved.building);
     box.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
@@ -3308,7 +3291,7 @@ function getSelectedTargetSmsInfo(){
     const gridLabel = parsed.col + parsed.row + " " + String(parsed.sub).padStart(3,"0");
     if(resolved.building){
       return {
-        text: cleanSmsText(formatBuildingId(resolved.building.id) + " - " + resolved.building.name + " | Grid: " + gridLabel),
+        text: cleanSmsText(formatBuildingId(resolved.building.id) + " - " + resolved.building.name + " | Grid: " + gridLabel + (resolved.building.keyHolder ? " | Key Holder: " + resolved.building.keyHolder : "")),
         grid: gridLabel
       };
     }
