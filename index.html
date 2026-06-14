@@ -1573,6 +1573,416 @@ body.buildingSheetOpen .categoryBar select{
 }
 </style>
 
+
+<style id="SD_HEADER_REAL_V4">
+/* Header V4 - only visual skin, same layout/measurements */
+.topbar {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+}
+
+.topbar::after {
+  content: "" !important;
+  position: absolute !important;
+  right: -4px !important;
+  top: -14px !important;
+  width: 430px !important;
+  height: 124px !important;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20520%20150%27%3E%0A%3Cg%20fill%3D%27none%27%20stroke%3D%27%23f5b331%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%0A%3Cpath%20d%3D%27M8%20128H512%27%20stroke-width%3D%272%27%20opacity%3D%27.55%27/%3E%0A%3Crect%20x%3D%2735%27%20y%3D%2791%27%20width%3D%2754%27%20height%3D%2737%27%20rx%3D%275%27%20stroke-width%3D%273%27/%3E%0A%3Crect%20x%3D%27103%27%20y%3D%2778%27%20width%3D%2762%27%20height%3D%2750%27%20rx%3D%275%27%20stroke-width%3D%273%27/%3E%0A%3Crect%20x%3D%27184%27%20y%3D%2760%27%20width%3D%2770%27%20height%3D%2768%27%20rx%3D%276%27%20stroke-width%3D%273%27/%3E%0A%3Cpath%20d%3D%27M52%2091V54h18v37M124%2078V38h20v40M215%2060V20h23v40%27%20stroke-width%3D%273%27/%3E%0A%3Cpath%20d%3D%27M286%20128V43l64%2085M313%20128V43l64%2085M286%2043h91M296%2064h63M306%2086h66M318%20108h66%27%20stroke-width%3D%272.2%27%20opacity%3D%27.9%27/%3E%0A%3Ccircle%20cx%3D%27425%27%20cy%3D%2796%27%20r%3D%2728%27%20stroke-width%3D%273%27/%3E%0A%3Ccircle%20cx%3D%27425%27%20cy%3D%2796%27%20r%3D%2716%27%20stroke-width%3D%272%27%20opacity%3D%27.8%27/%3E%0A%3Cpath%20d%3D%27M425%2068V33M425%20124v15M397%2096h-35M453%2096h54%27%20stroke-width%3D%272.2%27%20opacity%3D%27.8%27/%3E%0A%3Cpath%20d%3D%27M20%20107c62-25%20102%208%20151-17s89-30%20132-42%20112-13%20200%2014%27%20stroke-width%3D%272%27%20opacity%3D%27.45%27/%3E%0A%3Cpath%20d%3D%27M18%20120c65-18%20114%209%20168-10s100-22%20144-28%2095-2%20176%2018%27%20stroke-width%3D%272%27%20opacity%3D%27.38%27/%3E%0A%3C/g%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  background-position: right top !important;
+  opacity: .62 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  filter: drop-shadow(0 0 12px rgba(245,179,49,.20)) !important;
+}
+
+.topbar > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.isdHeaderTitle {
+  text-align: left !important;
+  padding-left: 36px !important;
+  padding-right: 240px !important;
+  box-sizing: border-box !important;
+  margin-top: 2px !important;
+  margin-bottom: 8px !important;
+  color: #FFD54A !important;
+  text-shadow: 0 0 12px rgba(255,213,74,.42) !important;
+}
+
+@media (max-width:768px){
+  .isdHeaderTitle {
+    padding-left: 22px !important;
+    padding-right: 130px !important;
+  }
+  .topbar::after {
+    right: -28px !important;
+    top: -8px !important;
+    width: 280px !important;
+    height: 96px !important;
+    opacity: .48 !important;
+  }
+}
+</style>
+
+
+<style id="SD_BUTTONS_NEON_SKIN">
+/* Buttons skin only — keeps original sizes/positions */
+button,
+.btn,
+.actionBtn,
+.toolBtn,
+.controlBtn,
+.resetBtn,
+.hideBtn,
+.searchBtn,
+.clearBtn,
+.gtsBtn,
+.shareBtn,
+.locationBtn,
+.sipBtn,
+.sccBtn,
+.indexBtn,
+#resetBtn,
+#hideBtn,
+#searchBtn,
+#clearBtn,
+#gtsBtn,
+#shareBtn,
+#myLocationBtn,
+#sipBtn,
+#sccBtn,
+#buildingIndexBtn{
+  border-radius:18px !important;
+  border:1.5px solid rgba(120,150,190,.45) !important;
+  background:linear-gradient(180deg,rgba(25,31,42,.95),rgba(11,15,22,.98)) !important;
+  color:#fff !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 8px 22px rgba(0,0,0,.28) !important;
+  text-shadow:0 1px 2px rgba(0,0,0,.45) !important;
+}
+
+/* Search = orange premium */
+button[onclick*="search"],
+.searchBtn,
+#searchBtn{
+  border-color:rgba(255,138,0,.72) !important;
+  background:linear-gradient(180deg,#ffae2b,#ff7a00) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.28),
+    0 0 0 1px rgba(255,138,0,.18),
+    0 0 18px rgba(255,138,0,.34),
+    0 10px 24px rgba(0,0,0,.34) !important;
+}
+
+/* Clear / Reset / Hide = dark gunmetal */
+button[onclick*="clear"],
+button[onclick*="reset"],
+button[onclick*="hide"],
+.clearBtn,
+.resetBtn,
+.hideBtn,
+#clearBtn,
+#resetBtn,
+#hideBtn{
+  border-color:rgba(100,125,165,.55) !important;
+  background:linear-gradient(180deg,rgba(33,40,53,.96),rgba(12,16,24,.98)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 0 10px rgba(90,125,180,.16),
+    0 8px 20px rgba(0,0,0,.30) !important;
+}
+
+/* Blue buttons: GTS / Share / My Location */
+button[onclick*="GTS"],
+button[onclick*="gts"],
+button[onclick*="share"],
+button[onclick*="Share"],
+button[onclick*="location"],
+button[onclick*="Location"],
+button[onclick*="locate"],
+.gtsBtn,
+.shareBtn,
+.locationBtn,
+#GTSBtn,
+#gtsBtn,
+#shareBtn,
+#myLocationBtn{
+  border-color:rgba(0,170,255,.78) !important;
+  background:linear-gradient(180deg,rgba(16,35,55,.96),rgba(7,14,25,.98)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 0 0 1px rgba(0,170,255,.12),
+    0 0 15px rgba(0,170,255,.32),
+    0 8px 20px rgba(0,0,0,.30) !important;
+}
+
+/* SIP = amber */
+button[onclick*="SIP"],
+button[onclick*="sip"],
+.sipBtn,
+#sipBtn{
+  border-color:rgba(255,157,0,.78) !important;
+  background:linear-gradient(180deg,rgba(45,34,15,.96),rgba(14,14,17,.98)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 0 0 1px rgba(255,157,0,.12),
+    0 0 15px rgba(255,157,0,.32),
+    0 8px 20px rgba(0,0,0,.30) !important;
+}
+
+/* SCC = red */
+button[onclick*="SCC"],
+button[onclick*="scc"],
+.sccBtn,
+#sccBtn{
+  border-color:rgba(255,35,45,.82) !important;
+  background:linear-gradient(180deg,rgba(48,12,17,.96),rgba(14,14,17,.98)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 0 0 1px rgba(255,35,45,.12),
+    0 0 16px rgba(255,35,45,.36),
+    0 8px 20px rgba(0,0,0,.30) !important;
+}
+
+/* Building Index = green */
+button[onclick*="building"],
+button[onclick*="Building"],
+button[onclick*="index"],
+button[onclick*="Index"],
+.indexBtn,
+#buildingIndexBtn{
+  border-color:rgba(0,220,120,.76) !important;
+  background:linear-gradient(180deg,rgba(13,42,30,.96),rgba(8,15,16,.98)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 0 0 1px rgba(0,220,120,.12),
+    0 0 15px rgba(0,220,120,.30),
+    0 8px 20px rgba(0,0,0,.30) !important;
+}
+
+/* Smooth press effect only */
+button:active,
+.btn:active,
+.actionBtn:active,
+.toolBtn:active{
+  transform:scale(.98) !important;
+  filter:brightness(1.08) !important;
+}
+</style>
+
+
+<style id="SD_BLUE_BUTTONS_V2">
+/* All buttons blue except Search and SCC */
+button,
+.btn,
+.actionBtn,
+.toolBtn,
+.controlBtn{
+  border-color:rgba(0,170,255,.75)!important;
+  background:linear-gradient(180deg,rgba(16,35,55,.96),rgba(7,14,25,.98))!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 0 12px rgba(0,170,255,.28),
+    0 8px 20px rgba(0,0,0,.30)!important;
+}
+
+/* Search orange */
+button[onclick*="search"],
+.searchBtn,
+#searchBtn{
+  border-color:rgba(255,138,0,.8)!important;
+  background:linear-gradient(180deg,#ffae2b,#ff7a00)!important;
+  box-shadow:0 0 16px rgba(255,138,0,.35)!important;
+}
+
+/* SCC red */
+button[onclick*="SCC"],
+button[onclick*="scc"],
+.sccBtn,
+#sccBtn{
+  border-color:rgba(255,40,50,.82)!important;
+  background:linear-gradient(180deg,rgba(48,12,17,.96),rgba(14,14,17,.98))!important;
+  box-shadow:0 0 16px rgba(255,35,45,.36)!important;
+}
+</style>
+
+
+<style id="SD_BOTTOM_CARDS_V2_FORCE">
+/* FORCE bottom area/cards visual only */
+
+/* Common bottom containers */
+#bottom,
+.bottom,
+.bottomBar,
+.bottom-bar,
+.bottomPanel,
+.bottom-panel,
+.footer,
+.footerPanel,
+.footer-panel,
+.metrics,
+.metricBar,
+.metric-bar,
+.infoBar,
+.info-bar,
+.statusBar,
+.status-bar,
+.cards,
+.cardsRow,
+.cards-row{
+  background:linear-gradient(180deg,rgba(20,28,42,.96),rgba(8,12,20,.98)) !important;
+  border:1px solid rgba(0,170,255,.38) !important;
+  box-shadow:
+    0 0 0 1px rgba(245,179,49,.14),
+    0 0 22px rgba(0,170,255,.16),
+    0 14px 34px rgba(0,0,0,.38) !important;
+  border-radius:18px !important;
+  backdrop-filter:blur(14px) !important;
+  -webkit-backdrop-filter:blur(14px) !important;
+}
+
+/* Individual info cards by class/id/name patterns */
+[id*="grid"],
+[id*="Grid"],
+[id*="direction"],
+[id*="Direction"],
+[id*="distance"],
+[id*="Distance"],
+[class*="grid"],
+[class*="Grid"],
+[class*="direction"],
+[class*="Direction"],
+[class*="distance"],
+[class*="Distance"],
+[class*="metric"],
+[class*="Metric"],
+[class*="card"],
+[class*="Card"]{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 0 0 1px rgba(0,170,255,.22),
+    0 0 16px rgba(0,170,255,.12),
+    0 10px 24px rgba(0,0,0,.26) !important;
+}
+
+/* Only when these elements look like visible bottom cards */
+#currentGrid,
+#current-grid,
+#gridValue,
+#grid-value,
+#direction,
+#directionValue,
+#distance,
+#distanceValue,
+.gridBox,
+.directionBox,
+.distanceBox,
+.metricBox,
+.cardBox,
+.infoBox{
+  background:linear-gradient(180deg,rgba(18,27,42,.94),rgba(8,13,22,.98)) !important;
+  border:1px solid rgba(0,170,255,.38) !important;
+  border-radius:18px !important;
+  color:#fff !important;
+}
+
+/* Premium text treatment */
+[id*="grid"] *,
+[id*="Grid"] *,
+[id*="direction"] *,
+[id*="Direction"] *,
+[id*="distance"] *,
+[id*="Distance"] *,
+[class*="metric"] *,
+[class*="Metric"] *,
+[class*="card"] *,
+[class*="Card"] *{
+  text-shadow:0 1px 2px rgba(0,0,0,.35) !important;
+}
+
+/* Tiny gold highlight for bottom containers */
+#bottom::before,
+.bottom::before,
+.bottomBar::before,
+.bottom-bar::before,
+.bottomPanel::before,
+.bottom-panel::before,
+.footer::before,
+.metrics::before,
+.metricBar::before,
+.infoBar::before,
+.statusBar::before,
+.cards::before{
+  content:"" !important;
+  position:absolute !important;
+  left:14px !important;
+  right:14px !important;
+  top:0 !important;
+  height:2px !important;
+  background:linear-gradient(90deg,transparent,rgba(245,179,49,.85),rgba(0,170,255,.55),transparent) !important;
+  pointer-events:none !important;
+}
+
+/* Make pseudo highlight work only if positioned */
+#bottom,
+.bottom,
+.bottomBar,
+.bottom-bar,
+.bottomPanel,
+.bottom-panel,
+.footer,
+.metrics,
+.metricBar,
+.infoBar,
+.statusBar,
+.cards{
+  position:relative !important;
+  overflow:hidden !important;
+}
+</style>
+
+
+<style id="SD_REFINERY_POSITION_V5">
+/* Refinery header polish only */
+.topbar::after{
+  right:-58px !important;
+  top:-2px !important;
+  width:560px !important;
+  height:138px !important;
+  opacity:.70 !important;
+  background-position:right center !important;
+  background-size:contain !important;
+  transform:translateY(10px) scaleX(1.08) !important;
+  filter:drop-shadow(0 0 15px rgba(245,179,49,.24)) !important;
+}
+
+/* keep title readable while refinery becomes wider */
+.isdHeaderTitle{
+  padding-right:320px !important;
+}
+
+@media(max-width:768px){
+  .topbar::after{
+    right:-70px !important;
+    top:2px !important;
+    width:390px !important;
+    height:112px !important;
+    opacity:.55 !important;
+    transform:translateY(8px) scaleX(1.05) !important;
+  }
+  .isdHeaderTitle{
+    padding-right:170px !important;
+  }
+}
+</style>
+
 </head>
 <body class="locked">
 <div id="passwordLockOverlay" role="dialog" aria-modal="true">
@@ -1701,7 +2111,7 @@ EG : Emergancy Gate<br>
   <div class="liveRecentLine" id="liveRecentSearches">Recent: --</div>
 </div>
 
-<div class="credit">Created by: ISD Shift A Team </div>
+<div class="credit">Created by: SD Shift A Team </div>
 
 </div>
 <script>
