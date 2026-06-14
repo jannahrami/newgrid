@@ -119,6 +119,7 @@ content="PRC Grid Finder">
   #sosBtn { background:#ff1744; color:#fff; }
   
   #myLocationBtn { background: #34c759; color: white; }
+#myLocationBtn{display:none !important;}
   #myLocationPin {
     position:absolute;
     width:22px;
@@ -1983,6 +1984,57 @@ button[onclick*="scc"],
 }
 </style>
 
+
+<style id="SD_TITLE_LOGO_V4_ONLY">
+/* ONLY logo + glow around SD Navigator. No title size override. */
+.sd-title-brand-v4{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:9px !important;
+  white-space:nowrap !important;
+  vertical-align:middle !important;
+}
+
+.sd-new-logo{
+  width:50px !important;
+  height:50px !important;
+  flex:0 0 50px !important;
+  background-image:url("data:image/svg+xml,%0A%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20100%20100%27%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%27g%27%20x1%3D%2716%27%20y1%3D%2710%27%20x2%3D%2784%27%20y2%3D%2790%27%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%270%27%20stop-color%3D%27%23ffd54a%27/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%27.5%27%20stop-color%3D%27%23ff8a00%27/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%271%27%20stop-color%3D%27%2300aaff%27/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3Cfilter%20id%3D%27glow%27%20x%3D%27-45%25%27%20y%3D%27-45%25%27%20width%3D%27190%25%27%20height%3D%27190%25%27%3E%0A%20%20%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%273.5%27%20result%3D%27b%27/%3E%0A%20%20%20%20%20%20%3CfeMerge%3E%3CfeMergeNode%20in%3D%27b%27/%3E%3CfeMergeNode%20in%3D%27SourceGraphic%27/%3E%3C/feMerge%3E%0A%20%20%20%20%3C/filter%3E%0A%20%20%3C/defs%3E%0A%0A%20%20%3Ccircle%20cx%3D%2750%27%20cy%3D%2750%27%20r%3D%2742%27%20fill%3D%27%23101820%27%20stroke%3D%27url%28%23g%29%27%20stroke-width%3D%275%27%20filter%3D%27url%28%23glow%29%27/%3E%0A%20%20%3Ccircle%20cx%3D%2750%27%20cy%3D%2750%27%20r%3D%2728%27%20fill%3D%27none%27%20stroke%3D%27rgba%28255%2C213%2C74%2C.55%29%27%20stroke-width%3D%272%27/%3E%0A%0A%20%20%3C%21--%20compass%20ticks%20--%3E%0A%20%20%3Cpath%20d%3D%27M50%2010%20V22%20M50%2078%20V90%20M10%2050%20H22%20M78%2050%20H90%27%20stroke%3D%27%23ffd54a%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27/%3E%0A%20%20%3Cpath%20d%3D%27M25%2025%20L32%2032%20M75%2025%20L68%2032%20M25%2075%20L32%2068%20M75%2075%20L68%2068%27%20stroke%3D%27%2300aaff%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20opacity%3D%27.9%27/%3E%0A%0A%20%20%3C%21--%20main%20navigation%20arrow%20--%3E%0A%20%20%3Cpath%20d%3D%27M58%2018%20L72%2072%20L50%2060%20L30%2072%20Z%27%20fill%3D%27url%28%23g%29%27%20stroke%3D%27%23fff2b0%27%20stroke-width%3D%272%27%20stroke-linejoin%3D%27round%27/%3E%0A%0A%20%20%3C%21--%20small%20route%20path%20--%3E%0A%20%20%3Cpath%20d%3D%27M24%2055%20C34%2044%2C42%2068%2C55%2055%20S72%2048%2C78%2062%27%20fill%3D%27none%27%20stroke%3D%27%2300aaff%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27%20opacity%3D%27.95%27/%3E%0A%0A%20%20%3C%21--%20center%20point%20--%3E%0A%20%20%3Ccircle%20cx%3D%2750%27%20cy%3D%2750%27%20r%3D%275%27%20fill%3D%27%23ffd54a%27/%3E%0A%3C/svg%3E%0A") !important;
+  background-size:contain !important;
+  background-repeat:no-repeat !important;
+  background-position:center !important;
+  filter:
+    drop-shadow(0 0 7px rgba(255,153,0,.65))
+    drop-shadow(0 0 14px rgba(0,170,255,.25)) !important;
+}
+
+.sd-title-glow-v4{
+  color:#FFD54A !important;
+  font-weight:inherit !important;
+  font-size:inherit !important;
+  line-height:inherit !important;
+  letter-spacing:.25px !important;
+  text-shadow:
+    0 0 2px rgba(0,0,0,.95),
+    1px 1px 0 rgba(0,0,0,.80),
+    -1px -1px 0 rgba(0,0,0,.65),
+    0 0 5px rgba(255,213,74,.35),
+    0 0 10px rgba(255,160,0,.22) !important;
+  -webkit-text-stroke:.7px rgba(0,0,0,.70);
+}
+
+@media (max-width:768px){
+  .sd-title-brand-v4{
+    gap:7px !important;
+  }
+  .sd-new-logo{
+    width:42px !important;
+    height:42px !important;
+    flex-basis:42px !important;
+  }
+}
+</style>
+
 </head>
 <body class="locked">
 <div id="passwordLockOverlay" role="dialog" aria-modal="true">
@@ -2008,7 +2060,7 @@ button[onclick*="scc"],
 <button id="showHeaderBtn" type="button">☰ Show</button>
 
 <div class="topbar">
-    <div class="isdHeaderTitle">SD Navigator</div>
+    <div class="isdHeaderTitle"><span class="sd-title-brand-v4"><span class="sd-new-logo" aria-hidden="true"></span><span class="sd-title-glow-v4">SD Navigator</span></span></div>
     <div class="headerQuickControls">
       <button id="resetZoomBtn" type="button">🔄 Reset</button>
       <button id="hideHeaderBtn" type="button">👁️ Hide</button>
@@ -4582,6 +4634,54 @@ let lastTouchEnd = 0;
 
     closeSheet();
   });
+})();
+</script>
+
+
+
+<script id="AUTO_LOCATION_START_V2">
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    try{
+      if (typeof showMyLocation === 'function') {
+        showMyLocation();
+      }
+    }catch(e){}
+  }, 900);
+});
+</script>
+
+
+<script id="AUTO_LOCATION_AFTER_CLEAR_V1">
+(function(){
+  function restartLocationAfterClear(){
+    var clearBtn = document.getElementById("clearBtn");
+    if(!clearBtn || clearBtn.dataset.autoLocationClearFix === "1") return;
+    clearBtn.dataset.autoLocationClearFix = "1";
+
+    clearBtn.addEventListener("click", function(){
+      setTimeout(function(){
+        try{
+          if (typeof showMyLocation === "function") {
+            // If Clear stopped/removed live location, start it again.
+            if (typeof gpsWatchId === "undefined" || gpsWatchId === null) {
+              showMyLocation();
+            } else {
+              // Keep current live tracking, just force redraw route/marker if available.
+              if (typeof updateDirectRoute === "function") updateDirectRoute();
+              if (typeof updateDirectionArrow === "function") updateDirectionArrow();
+            }
+          }
+        }catch(e){}
+      }, 500);
+    });
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", restartLocationAfterClear);
+  }else{
+    restartLocationAfterClear();
+  }
 })();
 </script>
 
