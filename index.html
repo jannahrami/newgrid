@@ -3641,11 +3641,49 @@ function updateMyLocationMarker() {
   pin.style.display = "block";
 }
 
+function isInsideMapCoverageXY(x, y) {
+  const mapLeft = grid.left;
+  const mapTop = grid.top;
+  const mapRight = grid.left + (cols.length * grid.cellW);
+  const mapBottom = grid.top + (rows.length * grid.cellH);
+  return x >= mapLeft && x <= mapRight && y >= mapTop && y <= mapBottom;
+}
+
+function setOutsideCoverageStatus() {
+  const status = document.getElementById("status");
+  if (status) status.textContent = "📍 Outside Coverage Area - الخريطة ثابتة";
+
+  try {
+    const gridEl = document.getElementById("liveCurrentGrid");
+    const distEl = document.getElementById("liveDistance");
+    const dirEl = document.getElementById("liveDirection");
+
+    if (gridEl) gridEl.textContent = "OUTSIDE";
+    if (distEl) {
+      distEl.textContent = "--";
+      distEl.style.color = "#ffffff";
+    }
+    if (dirEl) dirEl.textContent = "--";
+  } catch(e){}
+}
+
 function handleGpsPosition(pos, shouldScroll) {
   const status = document.getElementById("status");
   const lat = pos.coords.latitude;
   const lng = pos.coords.longitude;
   const xy = gpsToMapXY(lat, lng);
+
+  // If the phone is outside PRC map coverage, do NOT move/scroll the map.
+  // This prevents far locations like Jeddah from being forced into the nearest grid (example: G5100).
+  if (!isInsideMapCoverageXY(xy.x, xy.y)) {
+    window.lastMyLocationMapXY = null;
+    const pin = document.getElementById("myLocationPin");
+    if (pin) pin.style.display = "none";
+    setOutsideCoverageStatus();
+    updateDirectRoute();
+    return;
+  }
+
   window.lastMyLocationMapXY = xy;
   updateMyLocationMarker();
   updateDirectRoute();
