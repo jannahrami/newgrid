@@ -3310,14 +3310,16 @@ function toggleGrid() {
 
 
 // ===== Auto Zoom To Search Result - clean mode =====
-let autoZoomNextSearch = false;
+var autoZoomNextSearch = false;
+window.autoZoomNextSearch = false;
 const originalHighlight = highlight;
 
 highlight = function(value){
   const result = originalHighlight(value);
 
-  if (autoZoomNextSearch) {
+  if (autoZoomNextSearch || window.autoZoomNextSearch) {
     autoZoomNextSearch = false;
+    window.autoZoomNextSearch = false;
 
     const isMobile = window.matchMedia("(max-width:768px)").matches;
     const targetZoom = isMobile ? 8 : 3;
@@ -3341,7 +3343,7 @@ highlight = function(value){
   return result;
 };
 
-document.getElementById("searchBtn").onclick = () => { try { autoZoomNextSearch = true; highlight(document.getElementById("gridInput").value); } catch(e) { autoZoomNextSearch = false; } };
+document.getElementById("searchBtn").onclick = () => { try { autoZoomNextSearch = true; window.autoZoomNextSearch = true; highlight(document.getElementById("gridInput").value); } catch(e) { autoZoomNextSearch = false; window.autoZoomNextSearch = false; } };
 document.getElementById("clearBtn").onclick = () => { document.getElementById("highlight").style.display = "none"; document.getElementById("status").textContent = ""; showResult(null); const p=document.getElementById("myLocationPin"); if(p) p.style.display="none"; window.lastMyLocationMapXY=null; const arrow=document.getElementById("directionArrow"); if(arrow) arrow.style.display="none"; updateDirectRoute(); if (gpsWatchId !== null) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; const b=document.getElementById("myLocationBtn"); if(b) b.textContent="📍 My Location"; } };
 document.getElementById("gridInput").addEventListener("keydown", (e) => { if (e.key === "Enter") { try { highlight(e.target.value); } catch(err) {} } });
 window.addEventListener("resize", refreshMapOverlays);
@@ -4511,13 +4513,13 @@ document.addEventListener('DOMContentLoaded', function(){
   const showBtn = document.getElementById('showHeaderBtn');
   if(hideBtn){
     hideBtn.addEventListener('click', function(){
-      document.body.classList.add('uiHidden');
+      document.body.classList.add('uiHidden'); setTimeout(function(){window.dispatchEvent(new Event("resize"));},100);
       refreshAfterToggle();
     });
   }
   if(showBtn){
     showBtn.addEventListener('click', function(){
-      document.body.classList.remove('uiHidden');
+      document.body.classList.remove('uiHidden'); setTimeout(function(){window.dispatchEvent(new Event("resize"));},100);
       refreshAfterToggle();
     });
   }
@@ -4720,6 +4722,46 @@ window.addEventListener('load', function(){
   }else{
     restartLocationAfterClear();
   }
+})();
+</script>
+
+
+<script id="AUTOZOOM_GRID_FORCE_5_3_3">
+(function(){
+  function forceGridAutoZoom(){
+    var input = document.getElementById('gridInput');
+    var value = input ? input.value : '';
+    try { autoZoomNextSearch = true; } catch(e) {}
+    try { window.autoZoomNextSearch = true; } catch(e) {}
+    try {
+      if (typeof highlight === 'function') highlight(value);
+    } catch(e) {}
+    setTimeout(function(){
+      try { if (typeof setMapZoom === 'function' && typeof mapZoom !== 'undefined' && mapZoom < 8) setMapZoom(8); } catch(e) {}
+      setTimeout(function(){
+        var box = document.getElementById('highlight');
+        if (box && box.style.display !== 'none') {
+          try { box.scrollIntoView({behavior:'smooth', block:'center', inline:'center'}); } catch(e) { box.scrollIntoView(); }
+        }
+        try { if (typeof refreshMapOverlays === 'function') refreshMapOverlays(); } catch(e) {}
+        try { if (typeof updateDirectRoute === 'function') updateDirectRoute(); } catch(e) {}
+      }, 120);
+    }, 80);
+  }
+  function bindForce(){
+    var btn = document.getElementById('searchBtn');
+    var input = document.getElementById('gridInput');
+    if (btn) {
+      btn.type = 'button';
+      btn.onclick = function(e){ if(e) e.preventDefault(); forceGridAutoZoom(); return false; };
+    }
+    if (input && !input.dataset.autozoomForce533) {
+      input.dataset.autozoomForce533 = '1';
+      input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); forceGridAutoZoom(); }});
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindForce); else bindForce();
+  window.addEventListener('load', function(){ setTimeout(bindForce, 300); });
 })();
 </script>
 
